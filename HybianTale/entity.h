@@ -22,6 +22,10 @@ public:
 	void setX(float x);
 	void setY(float y);
 
+	Vector2 getPosition() { return m_position; }
+
+	void knockBack(entity* ent);
+
 	float getSpeed();
 	Vector2 m_oldPosition = zero;
 
@@ -39,11 +43,18 @@ public:
 	std::string tag;
 	Vector2 zero = { 0, 0 };
 
-	
+	int getFrameWidth();
+	int getFrameheight();
+
+	float getRight();
+	float getBottom();
+
+	float getAttackDistance();
 
 protected:
 	enum type {player, enemy, terrain, pickup};
 	type Type;
+	float m_attackDistance = 0.0f;
 private:
 
 	SDL_Texture* m_entityTexture = nullptr;
@@ -75,5 +86,6 @@ private:
 
 	spacialPartition* currentPartition;
 	bool m_active = false;
+	
 };
 

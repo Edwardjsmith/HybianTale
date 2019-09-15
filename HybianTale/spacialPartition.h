@@ -1,5 +1,6 @@
 #pragma once
 #include"grid.h"
+#include "physics.h"
 
 class spacialPartition
 	: public grid

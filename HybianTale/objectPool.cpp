@@ -20,7 +20,7 @@ entity * objectPool::spawnEntity(const char * tag)
 	entity* ent;
 	if (tag == "enemy1")
 	{
-		ent = new Enemy("Art/Goblin.bmp", 0, 0, 32, 32, 1, 1);
+		ent = new Enemy("Art/hero.png", 0, 0, 16, 16, 3, 4);
 		ent->setActive(false);
 		return ent;
 	}
@@ -41,6 +41,12 @@ objectPool::~objectPool()
 	{
 		delete ent;
 		ent = nullptr;
+	}
+
+	if (inst)
+	{
+		delete inst;
+		inst = nullptr;
 	}
 }
 

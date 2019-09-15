@@ -126,10 +126,12 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="gameLoop.cpp" />
+    <ClCompile Include="grid.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapSection.cpp" />
     <ClCompile Include="objectPool.cpp" />
+    <ClCompile Include="physics.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="spacialPartition.cpp" />
     <ClCompile Include="textureManager.cpp" />
@@ -146,6 +148,7 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="mapSection.h" />
     <ClInclude Include="objectPool.h" />
+    <ClInclude Include="physics.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="spacialPartition.h" />
     <ClInclude Include="textureManager.h" />

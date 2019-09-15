@@ -35,34 +35,61 @@ void spacialPartition::add(entity* ent)
 
 void spacialPartition::handleCell(entity * ent)
 {
-	while (ent != nullptr)
+	while(ent != nullptr)
 	{
 		//Set entity2 to what is next in the grid in entity
 		entity* entity2 = ent->next;
 
-		while (entity2 != nullptr)
+		while(entity2 != nullptr)
 		{
+			printf("Enemy spotted!\n");
 			//Checks for collision of each object in a cell as well as distance
 			//Uses the tag system to differentiate between entities
 			//Then returns true or false depending collision so 
 			//collision can be handled elsewhere such as player input function or enemy movement
 
-			if (entity2->tag == "enemy1")
+			if (distance(ent, entity2) < ent->getAttackDistance())
 			{
+				/*//Checks for collision of each object in a cell
+				if (physics::instance()->collidedLeft(ent, entity2))
+				{
+					printf("Collided left!\n");
+					ent->setPos(ent->m_oldPosition);
+				}
+				else if (physics::instance()->collidedRight(ent, entity2))
+				{
+					printf("Collided right!\n");
+					ent->setPos(ent->m_oldPosition);
+				}
+				else if (physics::instance()->collidedTop(ent, entity2))
+				{
+					printf("Collided top!\n");
+					ent->setPos(ent->m_oldPosition);
+				}
+				else if (physics::instance()->collidedBottom(ent, entity2))
+				{
+					printf("Collided bottom!\n");
+					ent->setPos(ent->m_oldPosition);
+				}*/
 
+				if (physics::instance()->collision(ent, entity2))
+				{
+					printf("Collided\n");
+					ent->setPos(ent->m_oldPosition);
+				}
 			}
 
 			//Entity2 now points to the next in the list of current cell
-			printf("point ent2 at next in grid start \n");
+			//printf("point ent2 at next in grid start \n");
 			entity2 = entity2->next;
-			printf("point ent2 at next in grid end\n");
+			//printf("point ent2 at next in grid end\n");
 		}
 		//Same again here for entity
-		printf("point ent at next in grid start \n");
+		//printf("point ent at next in grid start \n");
 		ent = ent->next;
-		printf("point ent at next in grid end\n");
+		//printf("point ent at next in grid end\n");
 	}
-	printf("End handlecell..\n");
+	//printf("End handlecell..\n");
 }
 
 void spacialPartition::moveEntity(entity * ent, float x, float y)

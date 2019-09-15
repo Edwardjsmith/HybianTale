@@ -25,8 +25,6 @@ entity::entity(const char* filename, float x, float y, int width, int height, in
 	destRect.y = (int)m_position.y;
 	destRect.w = srcRect.w * 2;
 	destRect.h = srcRect.h * 2;
-
-	//setPartition(partition);
 }
 
 
@@ -93,6 +91,7 @@ void entity::setY(float y)
 	m_position.y = y;
 }
 
+
 float entity::getSpeed()
 {
 	return m_speed;
@@ -122,5 +121,30 @@ bool entity::isActive()
 void entity::setPos(Vector2 pos)
 {
 	m_position = pos;
+}
+
+int entity::getFrameWidth()
+{
+	return m_frameWidth;
+}
+
+int entity::getFrameheight()
+{
+	return m_frameHeight;
+}
+
+float entity::getRight()
+{
+	return getX() + (destRect.w);
+}
+
+float entity::getBottom()
+{
+	return getY() + (destRect.h);
+}
+
+float entity::getAttackDistance()
+{
+	return m_attackDistance;
 }
 

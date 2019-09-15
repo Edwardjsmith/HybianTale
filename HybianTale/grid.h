@@ -5,9 +5,9 @@ class grid
 public:
 	grid() 
 	{
-		for (int i = 0; i < NUM_CELLSX; i++)
+		for (int i = 0; i < NUM_CELLS; i++)
 		{
-			for (int j = 0; j < NUM_CELLSY; j++)
+			for (int j = 0; j < NUM_CELLS; j++)
 			{
 				cells[i][j] = nullptr;
 			}
@@ -15,9 +15,9 @@ public:
 	};
 	~grid() 
 	{
-		for (int i = 0; i < NUM_CELLSX; i++)
+		for (int i = 0; i < NUM_CELLS; i++)
 		{
-			for (int j = 0; j < NUM_CELLSY; j++)
+			for (int j = 0; j < NUM_CELLS; j++)
 			{
 				cells[i][j] = nullptr;
 			}
@@ -35,10 +35,11 @@ public:
 
 protected:
 
-	static const int CELL_SIZE = 10;
-	static const int NUM_CELLSX = 68;
-	static const int NUM_CELLSY = 50;
+	static const int CELL_SIZE = 100;
+	static const int NUM_CELLS = 10;
 
-	entity* cells[NUM_CELLSX][NUM_CELLSY];
+	entity* cells[NUM_CELLS][NUM_CELLS];
+
+	float distance(entity * entA, entity * entB);
 
 };

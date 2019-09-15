@@ -7,6 +7,8 @@ player::player(const char* filename, float x, float y, int width, int height, in
 	setSpeed(2.0f);
 	setActive(true);
 	tag = "player";
+
+	m_attackDistance = 5.0f;
 }
 
 
