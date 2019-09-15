@@ -8,6 +8,7 @@ public:
 	~world();
 
 	void update(SDL_Renderer* rend, float delta, SDL_Event event);
+	bool boundsCheck(int index);
 	
 	mapSection* m_map[WORLD_SIZE][WORLD_SIZE];
 	mapSection* m_currentSection;

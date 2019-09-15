@@ -62,6 +62,22 @@ void world::update(SDL_Renderer* rend, float delta, SDL_Event event)
 	m_Player->render(rend); //Render player
 }
 
+bool world::boundsCheck(int index)
+{
+	if (index > WORLD_SIZE)
+	{
+		return false;
+	}
+	else if (index < 0)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
 //Checks to see if player has left boundaries of screen and changes section
 void world::checkSection()
 {
@@ -85,39 +101,82 @@ void world::checkSection()
 
 void world::changeSectionY(bool increment)
 {
-	if (increment == true)
+	bool bounds = false;
+	float oldPosY = 0.0f;
+	if (increment == true )
 	{
-		m_currentWorldY++;
-		m_Player->setY(0);
+		bounds = boundsCheck(m_currentWorldY + 1);
+		oldPosY = SCREEN_HEIGHT;
+
+		if (bounds)
+		{
+			m_currentWorldY++;
+			m_Player->setY(0);
+		}
 	}
 	else
 	{
-		m_currentWorldY--;
-		m_Player->setY(SCREEN_HEIGHT);
+		bounds = boundsCheck(m_currentWorldY - 1);
+		oldPosY = 0;
+
+		if (bounds)
+		{
+			m_currentWorldY--;
+			m_Player->setY(SCREEN_HEIGHT);
+		}
 	}
 
-	m_currentSection->leaveSection();
-	m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
-	m_currentSection->enterSection();
-	m_currentSection->addEntity(m_Player);
+	if (bounds)
+	{
+		m_currentSection->leaveSection();
+		m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
+		m_currentSection->enterSection();
+		m_currentSection->addEntity(m_Player);
+	}
+	else
+	{
+		m_Player->setY(oldPosY);
+	}
 }
 
 void world::changeSectionX(bool increment)
 {
+	bool bounds = false;
+	float oldPosX = 0.0f;
 	if (increment == true)
 	{
-		m_currentWorldX++;
-		m_Player->setX(0);
+		bounds = boundsCheck(m_currentWorldX + 1);
+		oldPosX = SCREEN_WIDTH;
+
+		if (bounds)
+		{
+			m_currentWorldX++;
+			m_Player->setX(0);
+		}
 	}
 	else
 	{
-		m_currentWorldX--;
-		m_Player->setX(SCREEN_WIDTH);
+		bounds = boundsCheck(m_currentWorldX - 1);
+		oldPosX = 0;
+
+		if (bounds)
+		{
+			m_currentWorldX--;
+			m_Player->setX(SCREEN_WIDTH);
+		}
 	}
 
-	m_currentSection->leaveSection();
-	m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
-	m_currentSection->enterSection();
-	m_currentSection->addEntity(m_Player);
+	if (bounds)
+	{
+		m_currentSection->leaveSection();
+		m_currentSection->partition->remove(m_Player);
+		m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
+		m_currentSection->enterSection();
+		m_currentSection->addEntity(m_Player);
+	}
+	else
+	{
+		m_Player->setX(oldPosX);
+	}
 }
 

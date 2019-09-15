@@ -48,7 +48,7 @@ void mapSection::loadSection(std::string filename, SDL_Renderer * ren)
 			case '0': 
 				break;
 			case '1': 
-				addEnemyPos("enemy1", Vector2(i*16,j*16));
+				addEnemyPos("enemy1", Vector2(i*32,j*32));
 				break;
 			case '2': 
 				break;

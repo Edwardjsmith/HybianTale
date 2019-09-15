@@ -18,7 +18,6 @@ void spacialPartition::add(entity* ent)
 	int cellX = (int)(ent->getX() / CELL_SIZE);
 	int cellY = (int)(ent->getY() / CELL_SIZE);
 
-
 	//Adds the entity to the front of the list of entitities
 	if (ent->prev)
 	{
@@ -33,6 +32,19 @@ void spacialPartition::add(entity* ent)
 	}
 }
 
+void spacialPartition::remove(entity * ent)
+{
+	for (int i = 0; i < NUM_CELLS; i++)
+	{
+		for (int j = 0; j < NUM_CELLS; j++)
+		{
+			cells[i][j] = nullptr;
+		}
+	}
+
+
+}
+
 void spacialPartition::handleCell(entity * ent)
 {
 	while(ent != nullptr)
@@ -43,10 +55,7 @@ void spacialPartition::handleCell(entity * ent)
 		while(entity2 != nullptr)
 		{
 			printf("Enemy spotted!\n");
-			//Checks for collision of each object in a cell as well as distance
-			//Uses the tag system to differentiate between entities
-			//Then returns true or false depending collision so 
-			//collision can be handled elsewhere such as player input function or enemy movement
+			//Checks for collision of each object in a cell as well as distance for connecting neibouring cells
 
 			if (distance(ent, entity2) < ent->getAttackDistance())
 			{
