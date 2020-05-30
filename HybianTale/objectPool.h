@@ -1,6 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include <vector>
+class player;
 class objectPool
 {
 public:
@@ -13,7 +14,7 @@ public:
 	std::vector<entity*> getActiveEnemies() { return m_enemies; }
 	std::vector<entity*> getActiveTerrain() { return m_terrain; }
 
-	void fillPool();
+	void fillPool(player* target);
 
 private:
 	objectPool();
@@ -22,7 +23,7 @@ private:
 	std::vector<entity*> m_enemies;
 	std::vector<entity*> m_terrain;
 
-	entity* spawnEntity(const char* tag);
+	entity* spawnEntity(const char* tag, player* target);
 
 };
 

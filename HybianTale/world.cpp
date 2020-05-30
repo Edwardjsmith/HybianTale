@@ -12,12 +12,13 @@ world::world(SDL_Renderer* Renderer)
 		}
 	}
 
-	objectPool::instance()->fillPool();
+	m_Player = new player("Art/hero.png", 0, 0, 16, 16, 3, 4);
+	objectPool::instance()->fillPool(m_Player);
 	m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
 	m_currentSection->enterSection();
-	m_Player = new player("Art/hero.png", 0, 0, 16, 16, 3, 4);
 	m_currentSection->addEntity(m_Player);
 	m_input = new input();
+	
 }
 world::~world()
 {
@@ -50,7 +51,11 @@ world::~world()
 void world::update(SDL_Renderer* rend, float delta, SDL_Event event)
 {
 	m_Player->update(delta);
-	m_command = m_input->updateInput(event);
+
+	if (!m_Player->InputDisabled())
+	{
+		m_command = m_input->updateInput(event);
+	}
 
 	if (m_command) //If input detected, execute it.
 	{

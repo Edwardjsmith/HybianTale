@@ -54,7 +54,7 @@ void spacialPartition::handleCell(entity * ent)
 
 		while(entity2 != nullptr)
 		{
-			printf("Enemy spotted!\n");
+			//printf("Enemy spotted!\n");
 			//Checks for collision of each object in a cell as well as distance for connecting neibouring cells
 
 			if (distance(ent, entity2) < ent->getAttackDistance())
@@ -105,8 +105,8 @@ void spacialPartition::moveEntity(entity * ent, float x, float y)
 {
 	DBG_ASSERT(ent);
 	//Store old pos to revert back to on collision
-	ent->m_oldPosition.x = ent->getX();
-	ent->m_oldPosition.y = ent->getY();
+	(*ent).m_oldPosition.x = ent->getX();
+	(*ent).m_oldPosition.y = ent->getY();
 
 	//Checks what cell the player is in
 	int oldCellX = ((int)ent->getX() / CELL_SIZE);

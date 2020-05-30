@@ -14,17 +14,17 @@ public:
 	float getX() { return m_position.x; } 
 	float getY() { return m_position.y; }
 	void setSpeed(float val) { m_speed = val; }
-	void update(float delta);
+	virtual void update(float delta);
 
-	void moveX(float x, spacialPartition* partition, bool flip);
-	void moveY(float y, spacialPartition* partition, bool flip);
+	void moveX(float x, bool flip);
+	void moveY(float y, bool flip);
 
 	void setX(float x);
 	void setY(float y);
 
 	Vector2 getPosition() { return m_position; }
 
-	void knockBack(entity* ent);
+	void knockBack();
 
 	float getSpeed();
 	Vector2 m_oldPosition = zero;
@@ -44,12 +44,14 @@ public:
 	Vector2 zero = { 0, 0 };
 
 	int getFrameWidth();
-	int getFrameheight();
+	int getFrameHeight();
 
 	float getRight();
 	float getBottom();
 
 	float getAttackDistance();
+
+	bool InputDisabled() { return disableInput; }
 
 protected:
 	enum type {player, enemy, terrain, pickup};
@@ -86,6 +88,11 @@ private:
 
 	spacialPartition* currentPartition;
 	bool m_active = false;
+
+	bool knockedBack = false;
+	bool disableInput = false;
+
+	float knockBackTimer = 0.0f;
 	
 };
 

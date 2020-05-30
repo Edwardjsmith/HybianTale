@@ -58,13 +58,12 @@ bool physics::collidedBottom(entity * entA, entity * entB)
 
 bool physics::collision(entity * a, entity * b)
 {
-
-		if ((abs(a->getX() - b->getX()) < abs(a->getFrameWidth() + b->getFrameWidth())
-			&& (abs(a->getY() - b->getY()) < abs(a->getFrameheight() + b->getFrameheight()))))
+		if (a->getX() + a->getFrameWidth() < b->getX() || a->getX() > b->getX() + b->getFrameWidth() ||
+			a->getY() + a->getFrameHeight() < b->getY() || a->getY() > b->getY() + b->getFrameHeight())
 		{
-			return true;
+			return false;
 		}
 
-		return false;
+		return true;
 	
 }

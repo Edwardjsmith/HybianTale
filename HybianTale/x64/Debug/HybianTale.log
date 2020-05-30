@@ -9,6 +9,10 @@
   physics.cpp
   player.cpp
   spacialPartition.cpp
+  textureManager.cpp
+  Vector2.cpp
   world.cpp
   Generating Code...
-  HybianTale.vcxproj -> C:\Users\EdwardSmith\Documents\GitHub\HybianTale\HybianTale\x64\Debug\HybianTale.exe
+C:\Users\Ed\Documents\GitHub\HybianTale\HybianTale\Vector2.cpp(50): warning C4717: 'Vector2::operator==': recursive on all control paths, function will cause runtime stack overflow
+C:\Users\Ed\Documents\GitHub\HybianTale\HybianTale\Vector2.cpp(55): warning C4717: 'Vector2::operator!=': recursive on all control paths, function will cause runtime stack overflow
+LINK : fatal error LNK1104: cannot open file 'SDL2_image.lib'

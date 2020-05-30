@@ -44,7 +44,7 @@ textureManager* textureManager::instance()
 
 textureManager::~textureManager()
 {
-	for (std::map<const char*, SDL_Texture*>::iterator itr = m_textures->begin(); itr != m_textures->end(); itr++)
+	for (std::map<const char*, SDL_Texture*>::iterator itr = m_textures->begin(); itr != m_textures->end(); ++itr)
 	{
 		delete itr->first;
 		delete itr->second;

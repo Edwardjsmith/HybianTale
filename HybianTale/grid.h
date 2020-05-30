@@ -32,7 +32,7 @@ public:
 
 	float oldX;
 	float oldY;
-
+	static float distance(entity * entA, entity * entB);
 protected:
 
 	static const int CELL_SIZE = 100;
@@ -40,6 +40,6 @@ protected:
 
 	entity* cells[NUM_CELLS][NUM_CELLS];
 
-	float distance(entity * entA, entity * entB);
+	
 
 };

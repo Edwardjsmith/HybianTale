@@ -1,12 +1,13 @@
 #include "objectPool.h"
+#include "player.h"
 
 objectPool* objectPool::inst = nullptr;
 
-void objectPool::fillPool()
+void objectPool::fillPool(player* target)
 {
 	for (int i = 0; i < MAX_POP; i++)
 	{
-		m_enemies.push_back(spawnEntity("enemy1"));
+		m_enemies.push_back(spawnEntity("enemy1", target));
 	}
 }
 
@@ -15,12 +16,12 @@ objectPool::objectPool()
 	
 }
 
-entity * objectPool::spawnEntity(const char * tag)
+entity * objectPool::spawnEntity(const char * tag, player* target)
 {
 	entity* ent;
 	if (tag == "enemy1")
 	{
-		ent = new Enemy("Art/hero.png", 0, 0, 16, 16, 3, 4);
+		ent = new Enemy("Art/hero.png", 0, 0, 16, 16, 3, 4, target);
 		ent->setActive(false);
 		return ent;
 	}

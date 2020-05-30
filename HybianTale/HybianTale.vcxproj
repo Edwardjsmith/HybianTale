@@ -22,28 +22,28 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{FE747E5D-29F6-4889-BE06-A5E747F1F7A6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -65,21 +65,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2_image-2.0.5\include;C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2_image-2.0.5\lib\x86;C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>Includes\SDL2_image-2.0.5\include;Includes\SDL2-2.0.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>Includes\SDL2_image-2.0.5\lib\x86;Includes\SDL2-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2_image-2.0.5\include;C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2_image-2.0.5\lib\x86;C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>Includes\SDL2_image-2.0.5\include;Includes\SDL2-2.0.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>Includes\SDL2_image-2.0.5\lib\x86;Includes\SDL2-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2_image-2.0.5\include;C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2_image-2.0.5\lib\x64;C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2-2.0.10\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>Includes\SDL2_image-2.0.5\include;Includes\SDL2-2.0.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>Includes\SDL2_image-2.0.5\lib\x64;Includes\SDL2-2.0.12\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2_image-2.0.5\include;C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2_image-2.0.5\lib\x64;C:\Users\EdwardSmith\Source\Repos\HybianTale\Includes\SDL2-2.0.10\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>Includes\SDL2_image-2.0.5\include;Includes\SDL2-2.0.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>Includes\SDL2_image-2.0.5\lib\x64;Includes\SDL2-2.0.12\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,24 +116,33 @@
     <Link>
       <AdditionalDependencies>SDL2_image.lib;sdl2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <AdditionalDependencies>SDL2_image.lib;sdl2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="gameLoop.cpp" />
     <ClCompile Include="grid.cpp" />
+    <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapSection.cpp" />
+    <ClCompile Include="MoveToPlayerState.cpp" />
     <ClCompile Include="objectPool.cpp" />
     <ClCompile Include="physics.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="spacialPartition.cpp" />
+    <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="world.cpp" />
@@ -145,12 +154,16 @@
     <ClInclude Include="entity.h" />
     <ClInclude Include="gameLoop.h" />
     <ClInclude Include="grid.h" />
+    <ClInclude Include="IdleState.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="mapSection.h" />
+    <ClInclude Include="MoveToPlayerState.h" />
     <ClInclude Include="objectPool.h" />
     <ClInclude Include="physics.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="spacialPartition.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateMachine.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="world.h" />

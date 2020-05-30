@@ -16,9 +16,7 @@ public:
 
 	bool collision(entity* a, entity* b);
 
-
 private:
 	static physics* inst;
-
 };
 

@@ -52,20 +52,32 @@ void entity::render(SDL_Renderer* rend)
 void entity::update(float delta)
 {
 	m_delta = delta;
+
+	if (knockedBack)
+	{
+		knockBackTimer += m_delta;
+
+		if (knockBackTimer >= 1.0f)
+		{
+			knockBackTimer = 0.0f;
+			knockedBack = false;
+			disableInput = false;
+		}
+	}
 }
 
 
-void entity::moveX(float x, spacialPartition* partition, bool flip)
+void entity::moveX(float x, bool flip)
 {
 	m_flipTexture = flip;
 	srcRect.y = 0;
 	srcRect.x = m_frameWidth * int(((SDL_GetTicks() / FPS) % m_framesX));
-	partition->moveEntity(this, m_position.x + x * m_delta, getY());
-	partition->handleCell(this);
+	currentPartition->moveEntity(this, m_position.x + x * m_delta, getY());
+	currentPartition->handleCell(this);
 }
 
 
-void entity::moveY(float y, spacialPartition* partition, bool flip)
+void entity::moveY(float y, bool flip)
 {
 	if (flip)
 	{
@@ -77,8 +89,8 @@ void entity::moveY(float y, spacialPartition* partition, bool flip)
 	}
 
 	srcRect.x = m_frameWidth * int(((SDL_GetTicks() / FPS) % m_framesX));
-	partition->moveEntity(this, getX(), m_position.y + y * m_delta);
-	partition->handleCell(this);
+	currentPartition->moveEntity(this, getX(), m_position.y + y * m_delta);
+	currentPartition->handleCell(this);
 }
 
 void entity::setX(float x)
@@ -91,6 +103,12 @@ void entity::setY(float y)
 	m_position.y = y;
 }
 
+
+void entity::knockBack()
+{
+	disableInput = true;
+	knockedBack = true;
+}
 
 float entity::getSpeed()
 {
@@ -128,7 +146,7 @@ int entity::getFrameWidth()
 	return m_frameWidth;
 }
 
-int entity::getFrameheight()
+int entity::getFrameHeight()
 {
 	return m_frameHeight;
 }
