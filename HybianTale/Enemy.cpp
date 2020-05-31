@@ -2,30 +2,28 @@
 #include "StateMachine.h"
 
 
-Enemy::Enemy(const char* filename, float x, float y, int width, int height, int framesX, int framesY, entity* target) : entity(filename, x, y, width, height, framesX, framesY)
+Enemy::Enemy(const char* filename, float x, float y, int width, int height, int framesX, int framesY, const char* tag, Entity* target) : Entity(filename, x, y, width, height, framesX, framesY, tag)
 {
-	this->target = target;
-	stateMachine = new StateMachine(this);
-	setSpeed(1.0f);
-	setActive(true);
-
-	tag = "enemy1";
+	this->mp_target = target;
+	mp_stateMachine = new StateMachine(this);
+	SetSpeed(1.0f);
+	SetActive(true);
 }
 
 
 Enemy::~Enemy()
 {
-	if (stateMachine)
+	if (mp_stateMachine)
 	{
-		delete stateMachine;
-		stateMachine = nullptr;
+		delete mp_stateMachine;
+		mp_stateMachine = nullptr;
 	}
 }
 
-void Enemy::update(float delta)
+void Enemy::Update(float delta)
 {
-	entity::update(delta);
+	Entity::Update(delta);
 
-	stateMachine->UpdateCurrentState();
-	stateMachine->PollStateChange();
+	mp_stateMachine->UpdateCurrentState();
+	mp_stateMachine->PollStateChange();
 }

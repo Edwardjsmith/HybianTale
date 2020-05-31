@@ -132,7 +132,6 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="gameLoop.cpp" />
-    <ClCompile Include="grid.cpp" />
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />

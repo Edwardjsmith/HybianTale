@@ -3,65 +3,64 @@
 #include "Vector2.h"
 #include "defines.h"
 #include "spacialPartition.h"
-class entity
+class Entity
 {
-	friend class spacialPartition;
+	friend class SpacialPartition;
 public:
-	entity(const char* filename, float x, float y, int width, int height, int framesX, int framesY);
-	~entity();
+	Entity(const char* filename, float x, float y, int width, int height, int framesX, int framesY, const char* tag);
+	~Entity();
 
-	void render(SDL_Renderer* rend);
-	float getX() { return m_position.x; } 
-	float getY() { return m_position.y; }
-	void setSpeed(float val) { m_speed = val; }
-	virtual void update(float delta);
+	void Render(SDL_Renderer* rend);
+	float GetX() { return m_position.x; } 
+	float GetY() { return m_position.y; }
+	void SetSpeed(float val) { m_speed = val; }
+	virtual void Update(float delta);
 
-	void moveX(float x, bool flip);
-	void moveY(float y, bool flip);
+	void MoveX(float x, bool flip);
+	void MoveY(float y, bool flip);
 
-	void setX(float x);
-	void setY(float y);
+	void SetX(float x);
+	void SetY(float y);
 
-	Vector2 getPosition() { return m_position; }
+	Vector2 GetPosition() { return m_position; }
 
-	void knockBack();
+	void KnockBack();
 
-	float getSpeed();
-	Vector2 m_oldPosition = zero;
+	float GetSpeed();
+	Vector2 m_oldPosition = Vector2::m_zero;
 
-	entity* next = nullptr;
-	entity* prev = nullptr;
+	SpacialPartition* GetPartition();
+	void SetPartition(SpacialPartition* part);
 
-	spacialPartition* getPartition();
-	void setPartition(spacialPartition* part);
+	void SetActive(bool active);
+	bool IsActive();
 
-	void setActive(bool active);
-	bool isActive();
+	void SetPosition(Vector2 pos);
 
-	void setPos(Vector2 pos);
+	int GetFrameWidth();
+	int GetFrameHeight();
 
-	std::string tag;
-	Vector2 zero = { 0, 0 };
+	float GetRight();
+	float GetBottom();
 
-	int getFrameWidth();
-	int getFrameHeight();
+	float GetAttackDistance();
 
-	float getRight();
-	float getBottom();
+	bool InputDisabled() { return m_disableInput; }
 
-	float getAttackDistance();
+	const char* GetTag() { return m_tag; }
 
-	bool InputDisabled() { return disableInput; }
+	Vector2 GetInitialPos() { return m_initialPos; }
+
+	void SetInitialPos(Vector2 pos) { m_initialPos = pos; }
 
 protected:
-	enum type {player, enemy, terrain, pickup};
-	type Type;
 	float m_attackDistance = 0.0f;
+	const char* m_tag;
 private:
 
 	SDL_Texture* m_entityTexture = nullptr;
 	bool m_hasCollided = false;
-	SDL_Rect srcRect, destRect; //srcRect controls which frame is displayed while dest affects pos
+	SDL_Rect m_srcRect, m_destRect; //srcRect controls which frame is displayed while dest affects pos
 
 	bool m_flipTexture = false;
 
@@ -74,25 +73,23 @@ private:
 	int m_framesX;
 	int m_framesY;
 
-	Vector2 m_position = zero;
+	Vector2 m_position;
 	float m_speed = 0.0f;
 	float m_delta = 0.0f;
 
 	const int m_spriteWidth, m_spriteHeight;
 
-	Vector2 up = { 0, 1 };
-	Vector2 right = { 1, 0 };
-	Vector2 down = { 0, -1 };
-	Vector2 left = { -1, 0 };
-
-
-	spacialPartition* currentPartition;
+	SpacialPartition* mp_currentPartition = nullptr;
 	bool m_active = false;
 
-	bool knockedBack = false;
-	bool disableInput = false;
+	bool m_knockedBack = false;
+	bool m_disableInput = false;
 
-	float knockBackTimer = 0.0f;
-	
+	float m_knockBackTimer = 0.0f;
+
+	Entity* mp_next = nullptr;
+	Entity* mp_prev = nullptr;
+
+	Vector2 m_initialPos;
 };
 

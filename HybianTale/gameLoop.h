@@ -1,21 +1,21 @@
 #pragma once
 #include "world.h"
-class gameLoop
+class GameLoop
 {
 public:
 
-	gameLoop();
-	~gameLoop();
+	GameLoop();
+	~GameLoop();
 
-	void run(float delta);
+	void Run(float delta);
 	void render();
-	bool running();
+	bool Running();
 
 private:
 
 	bool m_running = false;
-	void init();
-	void handleEvents(float delta);
+	void Init();
+	void HandleEvents(float delta);
 	SDL_Event event;
 
 	//Screen position constants
@@ -28,6 +28,6 @@ private:
 
 	//SDL Window
 	SDL_Window* m_window;
-	world* World = nullptr;
+	World* world = nullptr;
 };
 

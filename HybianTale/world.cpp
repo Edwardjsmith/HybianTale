@@ -1,26 +1,26 @@
 #include "world.h"
-world::world(SDL_Renderer* Renderer)
+World::World(SDL_Renderer* Renderer)
 {
 	for (int i = 0; i < WORLD_SIZE; i++)
 	{
 		for (int j = 0; j < WORLD_SIZE; j++)
 		{
-			m_map[i][j] = new mapSection();
+			m_map[i][j] = new MapSection();
 
 			std::string file = "Art/0.txt";
-			m_map[i][j]->loadSection(file, Renderer);
+			m_map[i][j]->LoadSection(file, Renderer);
 		}
 	}
 
-	m_Player = new player("Art/hero.png", 0, 0, 16, 16, 3, 4);
-	objectPool::instance()->fillPool(m_Player);
+	m_player = new Player("Art/hero.png", 0, 0, 16, 16, 3, 4, "player");
+	ObjectPool::Instance()->fillPool(m_player);
 	m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
-	m_currentSection->enterSection();
-	m_currentSection->addEntity(m_Player);
-	m_input = new input();
+	m_currentSection->EnterSection();
+	m_currentSection->AddEntity(m_player);
+	m_input = new Input();
 	
 }
-world::~world()
+World::~World()
 {
 	for (int i = 0; i < WORLD_SIZE; i++)
 	{
@@ -31,10 +31,10 @@ world::~world()
 		}
 	}
 
-	if (m_Player)
+	if (m_player)
 	{
-		delete m_Player;
-		m_Player = nullptr;
+		delete m_player;
+		m_player = nullptr;
 	}
 	if (m_input)
 	{
@@ -48,26 +48,26 @@ world::~world()
 	}
 }
 
-void world::update(SDL_Renderer* rend, float delta, SDL_Event event)
+void World::Update(SDL_Renderer* rend, float delta, SDL_Event event)
 {
-	m_Player->update(delta);
+	m_player->Update(delta);
 
-	if (!m_Player->InputDisabled())
+	if (!m_player->InputDisabled())
 	{
-		m_command = m_input->updateInput(event);
+		m_command = m_input->UpdateInput(event);
 	}
 
 	if (m_command) //If input detected, execute it.
 	{
-		m_command->execute(*m_Player);
-		checkSection(); //Only check to change section if we move
+		m_command->Execute(*m_player);
+		CheckSection(); //Only check to change section if we move
 	}
 
-	m_currentSection->updateSection(delta, rend); //Updates every entity in current section
-	m_Player->render(rend); //Render player
+	m_currentSection->UpdateSection(delta, rend); //Updates every entity in current section
+	m_player->Render(rend); //Render player
 }
 
-bool world::boundsCheck(int index)
+bool World::BoundsCheck(int index)
 {
 	if (index > WORLD_SIZE)
 	{
@@ -84,104 +84,104 @@ bool world::boundsCheck(int index)
 }
 
 //Checks to see if player has left boundaries of screen and changes section
-void world::checkSection()
+void World::CheckSection()
 {
-	if (m_Player->getX() < 0)
+	if (m_player->GetX() < 0)
 	{
-		changeSectionX(false); //If we want to decrement current section (move left in world) false, else true to go right. Same logic for up and down
+		ChangeSectionX(false); //If we want to decrement current section (move left in world) false, else true to go right. Same logic for up and down
 	}
-	else if (m_Player->getX() > SCREEN_WIDTH)
+	else if (m_player->GetX() > SCREEN_WIDTH)
 	{
-		changeSectionX(true);
+		ChangeSectionX(true);
 	}
-	else if (m_Player->getY() < 0)
+	else if (m_player->GetY() < 0)
 	{
-		changeSectionY(false);
+		ChangeSectionY(false);
 	}
-	else if (m_Player->getY() > SCREEN_HEIGHT)
+	else if (m_player->GetY() > SCREEN_HEIGHT)
 	{
-		changeSectionY(true);
+		ChangeSectionY(true);
 	}
 }
 
-void world::changeSectionY(bool increment)
+void World::ChangeSectionY(bool increment)
 {
 	bool bounds = false;
 	float oldPosY = 0.0f;
 	if (increment == true )
 	{
-		bounds = boundsCheck(m_currentWorldY + 1);
+		bounds = BoundsCheck(m_currentWorldY + 1);
 		oldPosY = SCREEN_HEIGHT;
 
 		if (bounds)
 		{
 			m_currentWorldY++;
-			m_Player->setY(0);
+			m_player->SetY(0);
 		}
 	}
 	else
 	{
-		bounds = boundsCheck(m_currentWorldY - 1);
+		bounds = BoundsCheck(m_currentWorldY - 1);
 		oldPosY = 0;
 
 		if (bounds)
 		{
 			m_currentWorldY--;
-			m_Player->setY(SCREEN_HEIGHT);
+			m_player->SetY(SCREEN_HEIGHT);
 		}
 	}
 
 	if (bounds)
 	{
-		m_currentSection->leaveSection();
+		m_currentSection->LeaveSection();
 		m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
-		m_currentSection->enterSection();
-		m_currentSection->addEntity(m_Player);
+		m_currentSection->EnterSection();
+		m_currentSection->AddEntity(m_player);
 	}
 	else
 	{
-		m_Player->setY(oldPosY);
+		m_player->SetY(oldPosY);
 	}
 }
 
-void world::changeSectionX(bool increment)
+void World::ChangeSectionX(bool increment)
 {
 	bool bounds = false;
 	float oldPosX = 0.0f;
 	if (increment == true)
 	{
-		bounds = boundsCheck(m_currentWorldX + 1);
+		bounds = BoundsCheck(m_currentWorldX + 1);
 		oldPosX = SCREEN_WIDTH;
 
 		if (bounds)
 		{
 			m_currentWorldX++;
-			m_Player->setX(0);
+			m_player->SetX(0);
 		}
 	}
 	else
 	{
-		bounds = boundsCheck(m_currentWorldX - 1);
+		bounds = BoundsCheck(m_currentWorldX - 1);
 		oldPosX = 0;
 
 		if (bounds)
 		{
 			m_currentWorldX--;
-			m_Player->setX(SCREEN_WIDTH);
+			m_player->SetX(SCREEN_WIDTH);
 		}
 	}
 
 	if (bounds)
 	{
-		m_currentSection->leaveSection();
-		m_currentSection->partition->remove(m_Player);
+		m_currentSection->LeaveSection();
+		m_currentSection->m_partition->Remove(m_player);
 		m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
-		m_currentSection->enterSection();
-		m_currentSection->addEntity(m_Player);
+		m_currentSection->EnterSection();
+		m_currentSection->AddEntity(m_player);
 	}
 	else
 	{
-		m_Player->setX(oldPosX);
+		m_player->SetX(oldPosX);
 	}
 }
 

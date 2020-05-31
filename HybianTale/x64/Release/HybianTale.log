@@ -1,2 +1,11 @@
-﻿  MoveToPlayerState.cpp
+﻿  Enemy.cpp
+  IdleState.cpp
+  MoveToPlayerState.cpp
+  StateMachine.cpp
+  gameLoop.cpp
+  main.cpp
+  mapSection.cpp
+  objectPool.cpp
+  world.cpp
+  Generating Code...
   HybianTale.vcxproj -> C:\Users\Ed\Documents\GitHub\HybianTale\HybianTale\x64\Release\HybianTale.exe

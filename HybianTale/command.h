@@ -2,47 +2,47 @@
 #include "entity.h"
 #include <iostream>
 
-class command
+class Command
 {
 public:
 
-	virtual void execute(entity& Entity) = 0;
-	virtual ~command() {};
+	virtual void Execute(Entity& Entity) = 0;
+	virtual ~Command() {};
 };
 
-class LeftCommand : public command
+class LeftCommand : public Command
 {
 public:
-	virtual void execute(entity& Entity)
+	virtual void Execute(Entity& Entity)
 	{
-		Entity.moveX(-Entity.getSpeed(), false);
+		Entity.MoveX(-Entity.GetSpeed(), false);
 	}
 };
 
-class UpCommand : public command
+class UpCommand : public Command
 {
 public:
-	virtual void execute(entity& Entity)
+	virtual void Execute(Entity& Entity)
 	{
-		Entity.moveY(-Entity.getSpeed(), true);
+		Entity.MoveY(-Entity.GetSpeed(), true);
 	}
 };
 
-class RightCommand : public command
+class RightCommand : public Command
 {
 public:
-	virtual void execute(entity& Entity)
+	virtual void Execute(Entity& Entity)
 	{
-		Entity.moveX(Entity.getSpeed(), true);
+		Entity.MoveX(Entity.GetSpeed(), true);
 	}
 };
 
-class DownCommand : public command
+class DownCommand : public Command
 {
 public:
-	virtual void execute(entity& Entity)
+	virtual void Execute(Entity& Entity)
 	{
-		Entity.moveY(Entity.getSpeed(), false);
+		Entity.MoveY(Entity.GetSpeed(), false);
 	}
 };
 

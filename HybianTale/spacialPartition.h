@@ -2,16 +2,16 @@
 #include"grid.h"
 #include "physics.h"
 
-class spacialPartition
-	: public grid
+class SpacialPartition
+	: public Grid
 {
 public:
-	spacialPartition();
-	~spacialPartition();
+	SpacialPartition();
+	~SpacialPartition();
 
-	void add(entity* ent) override;
-	void remove(entity* ent);
-	void handleCell(entity* ent) override;
-	void moveEntity(entity* ent, float x, float y) override;
+	void Add(Entity* ent) override;
+	void Remove(Entity* ent);
+	void HandleCell(Entity* ent) override;
+	void MoveEntity(Entity* ent, const float& x, const float& y) override;
 };
 

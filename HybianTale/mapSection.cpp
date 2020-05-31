@@ -2,44 +2,44 @@
 
 
 
-mapSection::mapSection()
+MapSection::MapSection()
 {
-	partition = new spacialPartition();
+	m_partition = new SpacialPartition();
 }
 
 
-mapSection::~mapSection()
+MapSection::~MapSection()
 {
-	if (partition)
+	if (m_partition)
 	{
-		delete partition;
-		partition = nullptr;
+		delete m_partition;
+		m_partition = nullptr;
 	}
 
-	for (std::map<const char*, Vector2>::iterator itr = enemyPos.begin(); itr != enemyPos.end(); itr++)
+	for (std::map<const char*, Vector2>::iterator itr = m_enemyPos.begin(); itr != m_enemyPos.end(); itr++)
 	{
 		delete itr->first;
 	}
 
-	for (std::map<const char*, Vector2>::iterator itr = terrain.begin(); itr != terrain.end(); itr++)
+	for (std::map<const char*, Vector2>::iterator itr = m_terrain.begin(); itr != m_terrain.end(); itr++)
 	{
 		delete itr->first;
 	}
 
-	enemyPos.clear();
-	terrain.clear();
+	m_enemyPos.clear();
+	m_terrain.clear();
 }
 
-void mapSection::loadSection(std::string filename, SDL_Renderer * ren)
+void MapSection::LoadSection(std::string filename, SDL_Renderer * ren)
 {
 	char tile;
 	std::fstream map;
 
 	map.open(filename);
 
-	for (int i = 0; i < sizeY; i++)
+	for (int i = 0; i < SIZE_Y; i++)
 	{
-		for (int j = 0; j < sizeX; j++)
+		for (int j = 0; j < size_x; j++)
 		{
 			map >> tile;
 
@@ -48,7 +48,7 @@ void mapSection::loadSection(std::string filename, SDL_Renderer * ren)
 			case '0': 
 				break;
 			case '1': 
-				addEnemyPos("enemy1", Vector2(i*32,j*32));
+				AddEnemyPos("enemy1", Vector2(i*32,j*32));
 				break;
 			case '2': 
 				break;
@@ -60,79 +60,79 @@ void mapSection::loadSection(std::string filename, SDL_Renderer * ren)
 	map.close();
 }
 
-void mapSection::updateSection(float delta, SDL_Renderer * ren)
+void MapSection::UpdateSection(float delta, SDL_Renderer * ren)
 {
-	for (entity* ent : objectPool::instance()->getActiveEnemies())
+	for (Entity* ent : ObjectPool::Instance()->GetActiveEnemies())
 	{
-		if (ent->isActive())
+		if (ent->IsActive())
 		{
-			ent->update(delta);
-			ent->render(ren);
+			ent->Update(delta);
+			ent->Render(ren);
 		}
 	}
-	for (entity* ent : objectPool::instance()->getActiveTerrain())
+	for (Entity* ent : ObjectPool::Instance()->GetActiveTerrain())
 	{
-		if (ent->isActive())
+		if (ent->IsActive())
 		{
-			ent->update(delta);
-			ent->render(ren);
+			ent->Update(delta);
+			ent->Render(ren);
 		}
 	}
 }
 
-void mapSection::addEntity(entity * ent)
+void MapSection::AddEntity(Entity * ent)
 {
-	ent->setPartition(partition);
+	ent->SetPartition(m_partition);
 }
 
-void mapSection::leaveSection()
+void MapSection::LeaveSection()
 {
-	for (entity* ent : objectPool::instance()->getActiveEnemies())
+	for (Entity* ent : ObjectPool::Instance()->GetActiveEnemies())
 	{
-		if (ent->isActive())
+		if (ent->IsActive())
 		{
-			ent->setActive(false);
-			ent->setPos(ent->zero);
+			ent->SetActive(false);
+			ent->SetPosition(ent->GetInitialPos());
 		}
 	}
-	for (entity* ent : objectPool::instance()->getActiveTerrain())
+	for (Entity* ent : ObjectPool::Instance()->GetActiveTerrain())
 	{
-		if (ent->isActive())
+		if (ent->IsActive())
 		{
-			ent->setActive(false);
-			ent->setPos(ent->zero);
+			ent->SetActive(false);
+			ent->SetPosition(ent->GetInitialPos());
 		}
 	}
 }
 
-void mapSection::enterSection()
+void MapSection::EnterSection()
 {
 	std::map<const char*, Vector2>::iterator it;
 
-	for (it = enemyPos.begin(); it != enemyPos.end(); it++)
+	for (it = m_enemyPos.begin(); it != m_enemyPos.end(); it++)
 	{
-		objectPool::instance()->getPooledEnemy(it->first)->setPos(it->second);
+		ObjectPool::Instance()->GetPooledEnemy(it->first)->SetPosition(it->second);
 	}
 
-	for (entity* ent : objectPool::instance()->getActiveEnemies())
+	for (Entity* ent : ObjectPool::Instance()->GetActiveEnemies())
 	{
-		if (ent->isActive())
+		if (ent->IsActive())
 		{
-			addEntity(ent);
+			AddEntity(ent);
 		}
 	}
-	for (entity* ent : objectPool::instance()->getActiveTerrain())
+	for (Entity* ent : ObjectPool::Instance()->GetActiveTerrain())
 	{
-		if (ent->isActive())
+		if (ent->IsActive())
 		{
-			addEntity(ent);
+			AddEntity(ent);
 		}
 	}
 }
 
-void mapSection::addEnemyPos(const char * tag, Vector2 pos)
+void MapSection::AddEnemyPos(const char * tag, Vector2 pos)
 {
-	enemyPos.insert(std::pair<const char*, Vector2>(tag, pos));
+	m_enemyPos.insert(std::pair<const char*, Vector2>(tag, pos));
 }
 
 

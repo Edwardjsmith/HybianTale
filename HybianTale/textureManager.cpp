@@ -1,17 +1,17 @@
 #include "textureManager.h"
 
-textureManager* textureManager::inst = nullptr;
-std::map<const char*, SDL_Texture*>* textureManager::m_textures = nullptr;
+TextureManager* TextureManager::mp_inst = nullptr;
+std::map<const char*, SDL_Texture*>* TextureManager::mp_textures = nullptr;
 
-textureManager::textureManager()
+TextureManager::TextureManager()
 {
-	m_textures = new std::map<const char*, SDL_Texture*>();
+	mp_textures = new std::map<const char*, SDL_Texture*>();
 }
 
 
-SDL_Texture* textureManager::load(const char * filename, SDL_Renderer* rend)
+SDL_Texture* TextureManager::load(const char * filename, SDL_Renderer* rend)
 {
-	if (!m_textures->count(filename))
+	if (!mp_textures->count(filename))
 	{
 		SDL_Surface* surface = IMG_Load(filename);
 
@@ -21,41 +21,41 @@ SDL_Texture* textureManager::load(const char * filename, SDL_Renderer* rend)
 		}
 
 		SDL_Texture* tex = SDL_CreateTextureFromSurface(rend, surface);
-		m_textures->insert(std::pair<const char*, SDL_Texture*>(filename, tex));
+		mp_textures->insert(std::pair<const char*, SDL_Texture*>(filename, tex));
 		SDL_FreeSurface(surface);
 	}
 
-	return m_textures->at(filename);
+	return mp_textures->at(filename);
 }
 
-void textureManager::draw(SDL_Renderer* rend, SDL_Texture * tex, SDL_Rect src, SDL_Rect dest)
+void TextureManager::draw(SDL_Renderer* rend, SDL_Texture * tex, SDL_Rect src, SDL_Rect dest)
 {
 	SDL_RenderCopy(rend, tex, &src, &dest);
 }
 
-textureManager* textureManager::instance()
+TextureManager* TextureManager::Instance()
 {
-	if (inst == nullptr)
+	if (mp_inst == nullptr)
 	{
-		inst = new textureManager();
+		mp_inst = new TextureManager();
 	}
-	return inst;
+	return mp_inst;
 }
 
-textureManager::~textureManager()
+TextureManager::~TextureManager()
 {
-	for (std::map<const char*, SDL_Texture*>::iterator itr = m_textures->begin(); itr != m_textures->end(); ++itr)
+	for (std::map<const char*, SDL_Texture*>::iterator itr = mp_textures->begin(); itr != mp_textures->end(); ++itr)
 	{
 		delete itr->first;
 		delete itr->second;
 	}
 
-	delete m_textures;
-	m_textures = nullptr;
+	delete mp_textures;
+	mp_textures = nullptr;
 
-	if (inst)
+	if (mp_inst)
 	{
-		delete inst;
-		inst = nullptr;
+		delete mp_inst;
+		mp_inst = nullptr;
 	}
 }

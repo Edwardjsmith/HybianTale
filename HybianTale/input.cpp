@@ -1,11 +1,11 @@
 #include "input.h"
 
-input::input()
+Input::Input()
 {
-	leftMove = new LeftCommand();
-	rightMove = new RightCommand();
-	upMove = new UpCommand();
-	downMove = new DownCommand();
+	m_leftMove = new LeftCommand();
+	m_rightMove = new RightCommand();
+	m_upMove = new UpCommand();
+	m_downMove = new DownCommand();
 
 	m_keysPressed[KEY_DOWN] = false;
 	m_keysPressed[KEY_LEFT] = false;
@@ -14,37 +14,37 @@ input::input()
 	m_keysPressed[KEY_ESCAPE] = false;
 }
 
-input::~input()
+Input::~Input()
 {
-	if (upMove)
+	if (m_upMove)
 	{
-		delete upMove;
-		upMove = nullptr;
+		delete m_upMove;
+		m_upMove = nullptr;
 	}
-	if (downMove)
+	if (m_downMove)
 	{
-		delete downMove;
-		downMove = nullptr;
+		delete m_downMove;
+		m_downMove = nullptr;
 	}
-	if (leftMove)
+	if (m_leftMove)
 	{
-		delete leftMove;
-		leftMove = nullptr;
+		delete m_leftMove;
+		m_leftMove = nullptr;
 	}
-	if (rightMove)
+	if (m_rightMove)
 	{
-		delete rightMove;
-		rightMove = nullptr;
+		delete m_rightMove;
+		m_rightMove = nullptr;
 	}
-	if (downMove)
+	if (m_downMove)
 	{
-		delete downMove;
-		downMove = nullptr;
+		delete m_downMove;
+		m_downMove = nullptr;
 	}
 }
 
 
-command* input::updateInput(SDL_Event ev)
+Command* Input::UpdateInput(SDL_Event ev)
 {
 
 	if (ev.type == SDL_KEYDOWN)
@@ -116,20 +116,20 @@ command* input::updateInput(SDL_Event ev)
 
 	if (m_keysPressed[KEY_DOWN])
 	{
-		return downMove;
+		return m_downMove;
 	}
 	if (m_keysPressed[KEY_LEFT])
 	{
-		return leftMove;
+		return m_leftMove;
 	}
 	if (m_keysPressed[KEY_RIGHT])
 	{
 
-		return rightMove;
+		return m_rightMove;
 	}
 	if (m_keysPressed[KEY_UP])
 	{
-		return upMove;
+		return m_upMove;
 	}
 
 

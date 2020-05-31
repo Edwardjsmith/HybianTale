@@ -26,7 +26,7 @@ void IdleState::EnterState()
 
 void IdleState::UpdateState()
 {
-	if (grid::distance(GetAgent(), GetAgent()->GetTarget()) < GetAgent()->GetAgressionRadius())
+	if (Vector2::Distance(GetAgent()->GetPosition(), GetAgent()->GetTarget()->GetPosition()) < GetAgent()->GetAgressionRadius())
 	{
 		(*moveToEnemy) = true;
 	}

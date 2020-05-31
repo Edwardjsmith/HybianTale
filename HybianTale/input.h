@@ -7,22 +7,22 @@ enum KEYS_PRESSED_LIST
 	KEY_ESCAPE, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_ESC, KEY_NUM_OF
 };
 
-class input
+class Input
 {
 
 public:
-	input();
-	~input();
+	Input();
+	~Input();
 
-	command* updateInput(SDL_Event ev);
+	Command* UpdateInput(SDL_Event ev);
 
 private:
 
 	bool m_keysPressed[KEY_NUM_OF];
 
-	command* leftMove;
-	command* rightMove;
-	command* downMove;
-	command* upMove;
+	Command* m_leftMove;
+	Command* m_rightMove;
+	Command* m_downMove;
+	Command* m_upMove;
 
 };

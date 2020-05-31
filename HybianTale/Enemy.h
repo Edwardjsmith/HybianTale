@@ -3,21 +3,21 @@
 
 class StateMachine;
 class Enemy :
-	public entity
+	public Entity
 {
 public:
-	Enemy(const char* filename, float x, float y, int width, int height, int framesX, int framesY, entity* target);
+	Enemy(const char* filename, float x, float y, int width, int height, int framesX, int framesY, const char* tag, Entity* target);
 	~Enemy();
 
-	void update(float delta) override;
-	entity* GetTarget() { return target; }
+	void Update(float delta) override;
+	Entity* GetTarget() { return mp_target; }
 
-	float GetAgressionRadius() { return aggressionRadius; }
+	float GetAgressionRadius() { return m_aggressionRadius; }
 
 private:
-	StateMachine* stateMachine;
-	entity* target;
+	StateMachine* mp_stateMachine;
+	Entity* mp_target;
 
-	const float aggressionRadius = 100.0f;
+	const float m_aggressionRadius = 100.0f;
 };
 

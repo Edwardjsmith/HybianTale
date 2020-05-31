@@ -2,124 +2,96 @@
 #include "entity.h"
 
 
-spacialPartition::spacialPartition() : grid()
+SpacialPartition::SpacialPartition() : Grid()
 {
 }
 
 
-spacialPartition::~spacialPartition() 
+SpacialPartition::~SpacialPartition() 
 {
-	grid::~grid();
+	Grid::~Grid();
 }
 
-void spacialPartition::add(entity* ent)
+void SpacialPartition::Add(Entity* ent)
 {
 	//Determine which cell the entity is in
-	int cellX = (int)(ent->getX() / CELL_SIZE);
-	int cellY = (int)(ent->getY() / CELL_SIZE);
+	int cellX = (int)(ent->GetX() / CELL_SIZE);
+	int cellY = (int)(ent->GetY() / CELL_SIZE);
 
 	//Adds the entity to the front of the list of entitities
-	if (ent->prev)
+	if (ent->mp_prev)
 	{
-		ent->prev = NULL;
+		ent->mp_prev = NULL;
 	}
-	ent->next = cells[cellX][cellY];
-	cells[cellX][cellY] = ent;
+	ent->mp_next = m_cells[cellX][cellY];
+	m_cells[cellX][cellY] = ent;
 
-	if (ent->next != NULL)
+	if (ent->mp_next != NULL)
 	{
-		ent->next->prev = ent;
+		ent->mp_next->mp_prev = ent;
 	}
 }
 
-void spacialPartition::remove(entity * ent)
+void SpacialPartition::Remove(Entity * ent)
 {
 	for (int i = 0; i < NUM_CELLS; i++)
 	{
 		for (int j = 0; j < NUM_CELLS; j++)
 		{
-			cells[i][j] = nullptr;
+			m_cells[i][j] = nullptr;
 		}
 	}
 
 
 }
 
-void spacialPartition::handleCell(entity * ent)
+void SpacialPartition::HandleCell(Entity * entity1)
 {
-	while(ent != nullptr)
+	while(entity1 != nullptr)
 	{
 		//Set entity2 to what is next in the grid in entity
-		entity* entity2 = ent->next;
+		Entity* entity2 = entity1->mp_next;
 
 		while(entity2 != nullptr)
 		{
-			//printf("Enemy spotted!\n");
-			//Checks for collision of each object in a cell as well as distance for connecting neibouring cells
-
-			if (distance(ent, entity2) < ent->getAttackDistance())
 			{
-				/*//Checks for collision of each object in a cell
-				if (physics::instance()->collidedLeft(ent, entity2))
-				{
-					printf("Collided left!\n");
-					ent->setPos(ent->m_oldPosition);
-				}
-				else if (physics::instance()->collidedRight(ent, entity2))
-				{
-					printf("Collided right!\n");
-					ent->setPos(ent->m_oldPosition);
-				}
-				else if (physics::instance()->collidedTop(ent, entity2))
-				{
-					printf("Collided top!\n");
-					ent->setPos(ent->m_oldPosition);
-				}
-				else if (physics::instance()->collidedBottom(ent, entity2))
-				{
-					printf("Collided bottom!\n");
-					ent->setPos(ent->m_oldPosition);
-				}*/
-
-				if (physics::instance()->collision(ent, entity2))
+				if (Physics::instance()->collision(entity1, entity2))
 				{
 					printf("Collided\n");
-					ent->setPos(ent->m_oldPosition);
+					entity1->SetPosition(entity1->m_oldPosition);
 				}
 			}
 
 			//Entity2 now points to the next in the list of current cell
 			//printf("point ent2 at next in grid start \n");
-			entity2 = entity2->next;
+			entity2 = entity2->mp_next;
 			//printf("point ent2 at next in grid end\n");
 		}
 		//Same again here for entity
 		//printf("point ent at next in grid start \n");
-		ent = ent->next;
+		entity1 = entity1->mp_next;
 		//printf("point ent at next in grid end\n");
 	}
 	//printf("End handlecell..\n");
 }
 
-void spacialPartition::moveEntity(entity * ent, float x, float y)
+void SpacialPartition::MoveEntity(Entity * entity, const float& x, const float& y)
 {
-	DBG_ASSERT(ent);
+	DBG_ASSERT(entity);
 	//Store old pos to revert back to on collision
-	(*ent).m_oldPosition.x = ent->getX();
-	(*ent).m_oldPosition.y = ent->getY();
+	(*entity).m_oldPosition = entity->GetPosition();
 
 	//Checks what cell the player is in
-	int oldCellX = ((int)ent->getX() / CELL_SIZE);
-	int oldCellY = ((int)ent->getY() / CELL_SIZE);
+	int oldCellX = ((int)entity->GetX() / CELL_SIZE);
+	int oldCellY = ((int)entity->GetY() / CELL_SIZE);
 
 	//Checks the cell the player is moving to
 	int cellX = (int)(x / CELL_SIZE);
 	int cellY = (int)(y / CELL_SIZE);
 
 	//Move entity
-	ent->setX(x);
-	ent->setY(y);
-
+	entity->SetX(x);
+	entity->SetY(y);
 
 	//If the entity is still in the same cell, break
 	if (oldCellX == cellX && oldCellY == cellY)
@@ -128,24 +100,24 @@ void spacialPartition::moveEntity(entity * ent, float x, float y)
 	}
 
 	//unlink from the old cells list of entities
-	if (ent->prev != NULL)
+	if (entity->mp_prev != nullptr)
 	{
-		ent->prev->next = ent->next;
+		entity->mp_prev->mp_next = entity->mp_next;
 	}
 
-	if (ent->next != NULL)
+	if (entity->mp_next != nullptr)
 	{
-		ent->next->prev = ent->prev;
+		entity->mp_next->mp_prev = entity->mp_prev;
 	}
 
 	//If it was at the head of that list remove
-	if (cells[oldCellX][oldCellY] == ent)
+	if (m_cells[oldCellX][oldCellY] == entity)
 	{
-		cells[oldCellX][oldCellY] = ent->next;
+		m_cells[oldCellX][oldCellY] = entity->mp_next;
 	}
 
 	//add it to the new cell
-	DBG_ASSERT(ent);
-	add(ent);
+	DBG_ASSERT(entity);
+	Add(entity);
 }
 

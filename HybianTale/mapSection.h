@@ -6,27 +6,27 @@
 #include <fstream>
 #include <string>
 
-class mapSection 
+class MapSection 
 {
 public:
-	mapSection();
-	~mapSection();
+	MapSection();
+	~MapSection();
 
-	void loadSection(std::string filename, SDL_Renderer * ren);
-	void updateSection(float delta, SDL_Renderer * ren);
-	void addEntity(entity* ent);
-	void leaveSection();
-	void enterSection();
+	void LoadSection(std::string filename, SDL_Renderer * ren);
+	void UpdateSection(float delta, SDL_Renderer * ren);
+	void AddEntity(Entity* ent);
+	void LeaveSection();
+	void EnterSection();
 
-	void addEnemyPos(const char* tag, Vector2 pos);
+	void AddEnemyPos(const char* tag, Vector2 pos);
 
-	spacialPartition* partition;
+	SpacialPartition* m_partition;
 private:
 
-	std::map<const char*, Vector2> terrain;
-	std::map<const char*, Vector2> enemyPos;
+	std::map<const char*, Vector2> m_terrain;
+	std::map<const char*, Vector2> m_enemyPos;
 
-	const int sizeY = SCREEN_HEIGHT / 16;
-	const int sizeX = SCREEN_WIDTH / 16;
+	const int SIZE_Y = SCREEN_HEIGHT / 16;
+	const int size_x = SCREEN_WIDTH / 16;
 };
 

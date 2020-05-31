@@ -1,29 +1,29 @@
 #pragma once
 #include "Enemy.h"
 #include <vector>
-class player;
-class objectPool
+class Player;
+class ObjectPool
 {
 public:
-	~objectPool();
-	static objectPool* instance();
+	~ObjectPool();
+	static ObjectPool* Instance();
 
-	entity* getPooledTerrain(std::string tag);
-	entity* getPooledEnemy(std::string tag);
+	Entity* getPooledTerrain(std::string tag);
+	Entity* GetPooledEnemy(std::string tag);
 
-	std::vector<entity*> getActiveEnemies() { return m_enemies; }
-	std::vector<entity*> getActiveTerrain() { return m_terrain; }
+	std::vector<Entity*> GetActiveEnemies() { return m_enemies; }
+	std::vector<Entity*> GetActiveTerrain() { return m_terrain; }
 
-	void fillPool(player* target);
+	void fillPool(Player* target);
 
 private:
-	objectPool();
-	static objectPool* inst;
+	ObjectPool();
+	static ObjectPool* inst;
 
-	std::vector<entity*> m_enemies;
-	std::vector<entity*> m_terrain;
+	std::vector<Entity*> m_enemies;
+	std::vector<Entity*> m_terrain;
 
-	entity* spawnEntity(const char* tag, player* target);
+	Entity* SpawnEntity(const char* tag, Player* target);
 
 };
 

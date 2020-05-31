@@ -1,27 +1,27 @@
 #pragma once
 #include "mapSection.h"
 #include "input.h"
-class world
+class World
 {
 public:
-	world(SDL_Renderer* Renderer);
-	~world();
+	World(SDL_Renderer* Renderer);
+	~World();
 
-	void update(SDL_Renderer* rend, float delta, SDL_Event event);
-	bool boundsCheck(int index);
+	void Update(SDL_Renderer* rend, float delta, SDL_Event event);
+	bool BoundsCheck(int index);
 	
-	mapSection* m_map[WORLD_SIZE][WORLD_SIZE];
-	mapSection* m_currentSection;
+	MapSection* m_map[WORLD_SIZE][WORLD_SIZE];
+	MapSection* m_currentSection;
 
 private:
 
-	void checkSection();
-	void changeSectionX(bool increment);
-	void changeSectionY(bool increment);
+	void CheckSection();
+	void ChangeSectionX(bool increment);
+	void ChangeSectionY(bool increment);
 
-	input* m_input;
-	command* m_command;
-	player* m_Player;
+	Input* m_input;
+	Command* m_command;
+	Player* m_player;
 
 	int m_currentWorldX = 0;
 	int m_currentWorldY = 0;

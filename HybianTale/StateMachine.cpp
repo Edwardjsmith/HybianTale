@@ -5,58 +5,58 @@
 
 StateMachine::StateMachine(Enemy* agent)
 {
-	enemyStates = new std::map<const char*, State*>();
+	m_enemyStates = new std::map<const char*, State*>();
 
-	enemyStates->insert(std::pair<const char*, State*>("Idle", new IdleState(agent)));
-	enemyStates->insert(std::pair<const char*, State*>("MoveToPlayer", new MoveToPlayerState(agent)));
+	m_enemyStates->insert(std::pair<const char*, State*>("Idle", new IdleState(agent)));
+	m_enemyStates->insert(std::pair<const char*, State*>("MoveToPlayer", new MoveToPlayerState(agent)));
 
-	currentState = enemyStates->at("Idle");
+	mp_currentState = m_enemyStates->at("Idle");
 }
 
 StateMachine::~StateMachine()
 {
-	if (enemyStates)
+	if (m_enemyStates)
 	{
-		for (std::map<const char*, State*>::iterator itr = enemyStates->begin(); itr != enemyStates->end(); ++itr)
+		for (std::map<const char*, State*>::iterator itr = m_enemyStates->begin(); itr != m_enemyStates->end(); ++itr)
 		{
 			delete itr->first;
 			delete itr->second;
 		}
 
-		delete enemyStates;
-		enemyStates = nullptr;
+		delete m_enemyStates;
+		m_enemyStates = nullptr;
 	}
 }
 
 void StateMachine::UpdateCurrentState()
 {
-	if (currentState != nullptr)
+	if (mp_currentState != nullptr)
 	{
-		currentState->UpdateState();
+		mp_currentState->UpdateState();
 	}
 }
 
 void StateMachine::PollStateChange()
 {
-	if (currentState != nullptr)
+	if (mp_currentState != nullptr)
 	{
-		const char* nextState = currentState->GetTransition();
+		const char* nextState = mp_currentState->GetTransition();
 
 		if (nextState != nullptr)
 		{
-			currentState->ExitState();
-			currentState = enemyStates->at(nextState);
-			currentState->EnterState();
+			mp_currentState->ExitState();
+			mp_currentState = m_enemyStates->at(nextState);
+			mp_currentState->EnterState();
 		}
 	}
 }
 
 void StateMachine::AddState(const char* name, State* state)
 {
-	enemyStates->insert(std::pair<const char*, State*>(name, state));
+	m_enemyStates->insert(std::pair<const char*, State*>(name, state));
 }
 
 void StateMachine::SetInitialState(const char* stateName)
 {
-	currentState = enemyStates->at(stateName);
+	mp_currentState = m_enemyStates->at(stateName);
 }

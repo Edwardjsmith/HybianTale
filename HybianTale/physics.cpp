@@ -1,13 +1,13 @@
 #include "physics.h"
-physics* physics::inst = nullptr;
+Physics* Physics::inst = nullptr;
 
 
-physics::physics()
+Physics::Physics()
 {
 }
 
 
-physics::~physics()
+Physics::~Physics()
 {
 	if (inst)
 	{
@@ -16,50 +16,50 @@ physics::~physics()
 	}
 }
 
-physics * physics::instance()
+Physics * Physics::instance()
 {
 	if (inst == nullptr)
 	{
-		inst = new physics();
+		inst = new Physics();
 	}
 
 	return inst;
 }
 
-bool physics::collidedLeft(entity * entA, entity * entB)
+bool Physics::collidedLeft(Entity * entA, Entity * entB)
 {
-	return (entA->getRight() - entB->getX()) < (entB->getRight() - entA->getX()) &&
-		(entA->getRight() - entB->getX()) < (entA->getBottom() - entB->getY()) &&
-		(entA->getRight() - entB->getX()) < (entB->getBottom() - entA->getY());
+	return (entA->GetRight() - entB->GetX()) < (entB->GetRight() - entA->GetX()) &&
+		(entA->GetRight() - entB->GetX()) < (entA->GetBottom() - entB->GetY()) &&
+		(entA->GetRight() - entB->GetX()) < (entB->GetBottom() - entA->GetY());
 }
 
-bool physics::collidedRight(entity * entA, entity * entB)
+bool Physics::collidedRight(Entity * entA, Entity * entB)
 {
-	return (entB->getRight() - entA->getX()) < (entA->getRight() - entB->getX()) &&
-		(entB->getRight() - entA->getX()) < (entA->getBottom() - entB->getY()) &&
-		(entB->getRight() - entA->getX()) < (entB->getBottom() - entA->getY());
+	return (entB->GetRight() - entA->GetX()) < (entA->GetRight() - entB->GetX()) &&
+		(entB->GetRight() - entA->GetX()) < (entA->GetBottom() - entB->GetY()) &&
+		(entB->GetRight() - entA->GetX()) < (entB->GetBottom() - entA->GetY());
 }
 
-bool physics::collidedTop(entity * entA, entity * entB)
+bool Physics::collidedTop(Entity * entA, Entity * entB)
 {
-	return (entA->getBottom() - entB->getY()) < (entB->getBottom() - entA->getY()) &&
-		(entA->getBottom() - entB->getY()) < (entA->getRight() - entB->getX()) &&
-		(entA->getBottom() - entB->getY()) < (entB->getRight() - entA->getX());
-
-}
-
-bool physics::collidedBottom(entity * entA, entity * entB)
-{
-	return (entB->getBottom() - entA->getY()) < (entA->getBottom() - entB->getY()) &&
-		(entB->getBottom() - entA->getY()) < (entA->getRight() - entB->getX()) &&
-		(entB->getBottom() - entA->getY()) < (entB->getRight() - entA->getX());
+	return (entA->GetBottom() - entB->GetY()) < (entB->GetBottom() - entA->GetY()) &&
+		(entA->GetBottom() - entB->GetY()) < (entA->GetRight() - entB->GetX()) &&
+		(entA->GetBottom() - entB->GetY()) < (entB->GetRight() - entA->GetX());
 
 }
 
-bool physics::collision(entity * a, entity * b)
+bool Physics::collidedBottom(Entity * entA, Entity * entB)
 {
-		if (a->getX() + a->getFrameWidth() < b->getX() || a->getX() > b->getX() + b->getFrameWidth() ||
-			a->getY() + a->getFrameHeight() < b->getY() || a->getY() > b->getY() + b->getFrameHeight())
+	return (entB->GetBottom() - entA->GetY()) < (entA->GetBottom() - entB->GetY()) &&
+		(entB->GetBottom() - entA->GetY()) < (entA->GetRight() - entB->GetX()) &&
+		(entB->GetBottom() - entA->GetY()) < (entB->GetRight() - entA->GetX());
+
+}
+
+bool Physics::collision(Entity * a, Entity * b)
+{
+		if (a->GetX() + a->GetFrameWidth() < b->GetX() || a->GetX() > b->GetX() + b->GetFrameWidth() ||
+			a->GetY() + a->GetFrameHeight() < b->GetY() || a->GetY() > b->GetY() + b->GetFrameHeight())
 		{
 			return false;
 		}

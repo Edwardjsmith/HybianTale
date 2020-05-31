@@ -1,28 +1,28 @@
 #include "objectPool.h"
 #include "player.h"
 
-objectPool* objectPool::inst = nullptr;
+ObjectPool* ObjectPool::inst = nullptr;
 
-void objectPool::fillPool(player* target)
+void ObjectPool::fillPool(Player* target)
 {
 	for (int i = 0; i < MAX_POP; i++)
 	{
-		m_enemies.push_back(spawnEntity("enemy1", target));
+		m_enemies.push_back(SpawnEntity("enemy1", target));
 	}
 }
 
-objectPool::objectPool()
+ObjectPool::ObjectPool()
 {
 	
 }
 
-entity * objectPool::spawnEntity(const char * tag, player* target)
+Entity * ObjectPool::SpawnEntity(const char * tag, Player* target)
 {
-	entity* ent;
+	Entity* ent;
 	if (tag == "enemy1")
 	{
-		ent = new Enemy("Art/hero.png", 0, 0, 16, 16, 3, 4, target);
-		ent->setActive(false);
+		ent = new Enemy("Art/hero.png", 0, 0, 16, 16, 3, 4, tag, target);
+		ent->SetActive(false);
 		return ent;
 	}
 
@@ -30,15 +30,15 @@ entity * objectPool::spawnEntity(const char * tag, player* target)
 }
 
 
-objectPool::~objectPool()
+ObjectPool::~ObjectPool()
 {
 
-	for (entity* ent : m_enemies)
+	for (Entity* ent : m_enemies)
 	{
 		delete ent;
 		ent = nullptr;
 	}
-	for (entity* ent : m_enemies)
+	for (Entity* ent : m_enemies)
 	{
 		delete ent;
 		ent = nullptr;
@@ -51,22 +51,22 @@ objectPool::~objectPool()
 	}
 }
 
-objectPool * objectPool::instance()
+ObjectPool * ObjectPool::Instance()
 {
 	if (inst == nullptr)
 	{
-		inst = new objectPool();
+		inst = new ObjectPool();
 	}
 	return inst;
 }
 
-entity* objectPool::getPooledTerrain(std::string tag)
+Entity* ObjectPool::getPooledTerrain(std::string tag)
 {
-	for (entity* ent : m_terrain)
+	for (Entity* ent : m_terrain)
 	{
-		if (ent->tag == tag && !ent->isActive())
+		if (ent->GetTag() == tag && !ent->IsActive())
 		{
-			ent->setActive(true);
+			ent->SetActive(true);
 			return ent;
 		}
 	}
@@ -74,13 +74,13 @@ entity* objectPool::getPooledTerrain(std::string tag)
 	return nullptr;
 }
 
-entity* objectPool::getPooledEnemy(std::string tag)
+Entity* ObjectPool::GetPooledEnemy(std::string tag)
 {
-	for (entity* ent : m_enemies)
+	for (Entity* ent : m_enemies)
 	{
-		if (ent->tag == tag && ent->isActive() == false)
+		if (ent->GetTag() == tag && ent->IsActive() == false)
 		{
-			ent->setActive(true);
+			ent->SetActive(true);
 			return ent;
 		}
 	}

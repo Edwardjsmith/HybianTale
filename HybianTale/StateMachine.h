@@ -18,7 +18,7 @@ public:
 	void SetInitialState(const char* stateName);
 
 private:
-	State* currentState;
-	std::map<const char*, State*>* enemyStates;
+	State* mp_currentState;
+	std::map<const char*, State*>* m_enemyStates;
 };
 

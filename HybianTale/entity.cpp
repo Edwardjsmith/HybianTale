@@ -1,12 +1,14 @@
 #include "entity.h"
 
 
-entity::entity(const char* filename, float x, float y, int width, int height, int framesX, int framesY) : m_spriteWidth(width), m_spriteHeight(height)
+Entity::Entity(const char* filename, float x, float y, int width, int height, int framesX, int framesY, const char* tag) : m_spriteWidth(width), m_spriteHeight(height)
 {
+	m_tag = tag;
+
 	m_position.x = x;
 	m_position.y = y;
 
-	m_entityTexture = textureManager::instance()->load(filename, textureManager::instance()->getRenderer());
+	m_entityTexture = TextureManager::Instance()->load(filename, TextureManager::Instance()->GetRenderer());
 
 	SDL_QueryTexture(m_entityTexture, NULL, NULL, &m_textureWidth, &m_textureHeight);
 
@@ -16,23 +18,23 @@ entity::entity(const char* filename, float x, float y, int width, int height, in
 	m_frameWidth = m_textureWidth / m_framesX;
 	m_frameHeight = m_textureHeight / m_framesY; 
 
-	srcRect.w = m_frameWidth;
-	srcRect.h = m_frameHeight;
-	srcRect.x = 0;
-	srcRect.y = 0;
+	m_srcRect.w = m_frameWidth;
+	m_srcRect.h = m_frameHeight;
+	m_srcRect.x = 0;
+	m_srcRect.y = 0;
 
-	destRect.x = (int)m_position.x;
-	destRect.y = (int)m_position.y;
-	destRect.w = srcRect.w * 2;
-	destRect.h = srcRect.h * 2;
+	m_destRect.x = (int)m_position.x;
+	m_destRect.y = (int)m_position.y;
+	m_destRect.w = m_srcRect.w * 2;
+	m_destRect.h = m_srcRect.h * 2;
 }
 
 
-entity::~entity()
+Entity::~Entity()
 {
 }
 
-void entity::render(SDL_Renderer* rend)
+void Entity::Render(SDL_Renderer* rend)
 {
 	SDL_RendererFlip flip;
 
@@ -45,123 +47,123 @@ void entity::render(SDL_Renderer* rend)
 		flip = SDL_FLIP_NONE;
 	}
 
-	SDL_Rect draw{(int)m_position.x, (int)m_position.y, destRect.w, destRect.h };
-	SDL_RenderCopyEx(rend, m_entityTexture, &srcRect, &draw, 0, 0, flip);
+	SDL_Rect draw{(int)m_position.x, (int)m_position.y, m_destRect.w, m_destRect.h };
+	SDL_RenderCopyEx(rend, m_entityTexture, &m_srcRect, &draw, 0, 0, flip);
 }
 
-void entity::update(float delta)
+void Entity::Update(float delta)
 {
 	m_delta = delta;
 
-	if (knockedBack)
+	if (m_knockedBack)
 	{
-		knockBackTimer += m_delta;
+		m_knockBackTimer += m_delta;
 
-		if (knockBackTimer >= 1.0f)
+		if (m_knockBackTimer >= 1.0f)
 		{
-			knockBackTimer = 0.0f;
-			knockedBack = false;
-			disableInput = false;
+			m_knockBackTimer = 0.0f;
+			m_knockedBack = false;
+			m_disableInput = false;
 		}
 	}
 }
 
 
-void entity::moveX(float x, bool flip)
+void Entity::MoveX(float x, bool flip)
 {
 	m_flipTexture = flip;
-	srcRect.y = 0;
-	srcRect.x = m_frameWidth * int(((SDL_GetTicks() / FPS) % m_framesX));
-	currentPartition->moveEntity(this, m_position.x + x * m_delta, getY());
-	currentPartition->handleCell(this);
+	m_srcRect.y = 0;
+	m_srcRect.x = m_frameWidth * int(((SDL_GetTicks() / FPS) % m_framesX));
+	mp_currentPartition->MoveEntity(this, GetX() + x * m_delta, GetY());
+	mp_currentPartition->HandleCell(this);
 }
 
 
-void entity::moveY(float y, bool flip)
+void Entity::MoveY(float y, bool flip)
 {
 	if (flip)
 	{
-		srcRect.y = 16;
+		m_srcRect.y = 16;
 	}
 	else
 	{
-		srcRect.y = m_frameHeight * 2;
+		m_srcRect.y = m_frameHeight * 2;
 	}
 
-	srcRect.x = m_frameWidth * int(((SDL_GetTicks() / FPS) % m_framesX));
-	currentPartition->moveEntity(this, getX(), m_position.y + y * m_delta);
-	currentPartition->handleCell(this);
+	m_srcRect.x = m_frameWidth * int(((SDL_GetTicks() / FPS) % m_framesX));
+	mp_currentPartition->MoveEntity(this, GetX(), GetY() + y * m_delta);
+	mp_currentPartition->HandleCell(this);
 }
 
-void entity::setX(float x)
+void Entity::SetX(float x)
 {
 	m_position.x = x;
 }
 
-void entity::setY(float y)
+void Entity::SetY(float y)
 {
 	m_position.y = y;
 }
 
 
-void entity::knockBack()
+void Entity::KnockBack()
 {
-	disableInput = true;
-	knockedBack = true;
+	m_disableInput = true;
+	m_knockedBack = true;
 }
 
-float entity::getSpeed()
+float Entity::GetSpeed()
 {
 	return m_speed;
 }
 
-spacialPartition * entity::getPartition()
+SpacialPartition * Entity::GetPartition()
 {
-	return currentPartition;
+	return mp_currentPartition;
 }
 
-void entity::setPartition(spacialPartition * part)
+void Entity::SetPartition(SpacialPartition * part)
 {
-	currentPartition = part;
-	currentPartition->add(this);
+	mp_currentPartition = part;
+	mp_currentPartition->Add(this);
 }
 
-void entity::setActive(bool active)
+void Entity::SetActive(bool active)
 {
 	m_active = active;
 }
 
-bool entity::isActive()
+bool Entity::IsActive()
 {
 	return m_active;
 }
 
-void entity::setPos(Vector2 pos)
+void Entity::SetPosition(Vector2 pos)
 {
 	m_position = pos;
 }
 
-int entity::getFrameWidth()
+int Entity::GetFrameWidth()
 {
 	return m_frameWidth;
 }
 
-int entity::getFrameHeight()
+int Entity::GetFrameHeight()
 {
 	return m_frameHeight;
 }
 
-float entity::getRight()
+float Entity::GetRight()
 {
-	return getX() + (destRect.w);
+	return GetX() + (m_destRect.w);
 }
 
-float entity::getBottom()
+float Entity::GetBottom()
 {
-	return getY() + (destRect.h);
+	return GetY() + (m_destRect.h);
 }
 
-float entity::getAttackDistance()
+float Entity::GetAttackDistance()
 {
 	return m_attackDistance;
 }

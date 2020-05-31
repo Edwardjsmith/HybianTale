@@ -26,26 +26,26 @@ void MoveToPlayerState::EnterState()
 
 void MoveToPlayerState::UpdateState()
 {
-	if (grid::distance(GetAgent(), GetAgent()->GetTarget()) > GetAgent()->GetAgressionRadius())
+	if (Vector2::Distance(GetAgent()->GetPosition(), GetAgent()->GetTarget()->GetPosition()) > GetAgent()->GetAgressionRadius())
 	{
 		(*lostPlayer) = true;
 	}
 
-	if (GetAgent()->getX() < GetAgent()->GetTarget()->getX())
+	if (GetAgent()->GetX() < GetAgent()->GetTarget()->GetX())
 	{
-		GetAgent()->moveX(GetAgent()->getSpeed(), true);
+		GetAgent()->MoveX(GetAgent()->GetSpeed(), true);
 	}
-	if(GetAgent()->getX() > GetAgent()->GetTarget()->getX())
+	if(GetAgent()->GetX() > GetAgent()->GetTarget()->GetX())
 	{
-		GetAgent()->moveX(-GetAgent()->getSpeed(), false);
+		GetAgent()->MoveX(-GetAgent()->GetSpeed(), false);
 	}
-	if (GetAgent()->getY() < GetAgent()->GetTarget()->getY())
+	if (GetAgent()->GetY() < GetAgent()->GetTarget()->GetY())
 	{
-		GetAgent()->moveY(GetAgent()->getSpeed(), false);
+		GetAgent()->MoveY(GetAgent()->GetSpeed(), false);
 	}
-	if (GetAgent()->getY() > GetAgent()->GetTarget()->getY())
+	if (GetAgent()->GetY() > GetAgent()->GetTarget()->GetY())
 	{
-		GetAgent()->moveY(-GetAgent()->getSpeed(), true);
+		GetAgent()->MoveY(-GetAgent()->GetSpeed(), true);
 	}
 }
 

@@ -1,22 +1,22 @@
 #pragma once
 #include "entity.h"
-class physics
+class Physics
 {
 public:
 
-	physics();
-	~physics();
+	Physics();
+	~Physics();
 
-	static physics* instance();
+	static Physics* instance();
 
-	bool collidedLeft(entity* entA, entity* entB);
-	bool collidedRight(entity* entA, entity* entB);
-	bool collidedTop(entity* entA, entity* entB);
-	bool collidedBottom(entity* entA, entity* entB);
+	bool collidedLeft(Entity* entA, Entity* entB);
+	bool collidedRight(Entity* entA, Entity* entB);
+	bool collidedTop(Entity* entA, Entity* entB);
+	bool collidedBottom(Entity* entA, Entity* entB);
 
-	bool collision(entity* a, entity* b);
+	bool collision(Entity* a, Entity* b);
 
 private:
-	static physics* inst;
+	static Physics* inst;
 };
 

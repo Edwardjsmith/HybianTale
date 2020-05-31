@@ -2,28 +2,28 @@
 
 
 
-gameLoop::gameLoop()
+GameLoop::GameLoop()
 {
-	init();
+	Init();
 }
 
 
-gameLoop::~gameLoop()
+GameLoop::~GameLoop()
 {
 }
 
 
-void gameLoop::run(float delta)
+void GameLoop::Run(float delta)
 {
-	handleEvents(delta);
+	HandleEvents(delta);
 }
 
-bool gameLoop::running()
+bool GameLoop::Running()
 {
 	return m_running;
 }
 
-void gameLoop::init()
+void GameLoop::Init()
 {
 	m_window = nullptr;
 	SDL_Init(SDL_INIT_EVERYTHING);			
@@ -37,9 +37,9 @@ void gameLoop::init()
 		return;
 	}
 
-	textureManager::instance()->setRenderer(SDL_CreateRenderer(m_window, -1, 0));
+	TextureManager::Instance()->SetRenderer(SDL_CreateRenderer(m_window, -1, 0));
 
-	if (!textureManager::instance()->getRenderer())
+	if (!TextureManager::Instance()->GetRenderer())
 	{
 		std::cout << "Renderer init failed: " << SDL_GetError() << std::endl;
 		std::cout << "Press any key to continue\n" << std::endl;
@@ -47,20 +47,20 @@ void gameLoop::init()
 		return;
 	}
 
-	World = new world(textureManager::instance()->getRenderer());
+	world = new World(TextureManager::Instance()->GetRenderer());
 
 	m_running = true;
 }
 
-void gameLoop::handleEvents(float delta)
+void GameLoop::HandleEvents(float delta)
 {
 	SDL_PollEvent(&event);
-	SDL_RenderClear(textureManager::instance()->getRenderer()); //Wipes display to desired colour
-	World->update(textureManager::instance()->getRenderer(), delta, event);
-	SDL_RenderPresent(textureManager::instance()->getRenderer()); //Presents colour
+	SDL_RenderClear(TextureManager::Instance()->GetRenderer()); //Wipes display to desired colour
+	world->Update(TextureManager::Instance()->GetRenderer(), delta, event);
+	SDL_RenderPresent(TextureManager::Instance()->GetRenderer()); //Presents colour
 }
 
-void gameLoop::render()
+void GameLoop::render()
 {
 
 }

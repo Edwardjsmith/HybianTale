@@ -1,45 +1,43 @@
 #pragma once
-class entity;
-class grid
+#include "Vector2.h"
+class Entity;
+class Grid
 {
 public:
-	grid() 
+	Grid() 
 	{
 		for (int i = 0; i < NUM_CELLS; i++)
 		{
 			for (int j = 0; j < NUM_CELLS; j++)
 			{
-				cells[i][j] = nullptr;
+				m_cells[i][j] = nullptr;
 			}
 		}
 	};
-	~grid() 
+	~Grid() 
 	{
 		for (int i = 0; i < NUM_CELLS; i++)
 		{
 			for (int j = 0; j < NUM_CELLS; j++)
 			{
-				cells[i][j] = nullptr;
+				m_cells[i][j] = nullptr;
 			}
 		}
 	};
 
-	virtual void add(entity* ent) = 0; 
-	virtual void handleCell(entity* ent) = 0;
-	virtual void moveEntity(entity* ent, float x, float y) = 0;
-
-	//Store old position values to revert to on collision
-
-	float oldX;
-	float oldY;
-	static float distance(entity * entA, entity * entB);
+	virtual void Add(Entity* ent) = 0; 
+	virtual void HandleCell(Entity* ent) = 0;
+	virtual void MoveEntity(Entity* ent, const float& x, const float& y) = 0;
+	
 protected:
 
 	static const int CELL_SIZE = 100;
 	static const int NUM_CELLS = 10;
 
-	entity* cells[NUM_CELLS][NUM_CELLS];
+	Entity* m_cells[NUM_CELLS][NUM_CELLS];
 
-	
 
+	//Store old position values to revert to on collision
+	float m_oldX = 0.0f;
+	float m_oldY = 0.0f;
 };
