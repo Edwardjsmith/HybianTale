@@ -16,7 +16,6 @@ private:
 	bool m_running = false;
 	void Init();
 	void HandleEvents(float delta);
-	SDL_Event event;
 
 	//Screen position constants
 	const int screenPosX = 50;

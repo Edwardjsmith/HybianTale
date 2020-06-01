@@ -54,9 +54,8 @@ void GameLoop::Init()
 
 void GameLoop::HandleEvents(float delta)
 {
-	SDL_PollEvent(&event);
 	SDL_RenderClear(TextureManager::Instance()->GetRenderer()); //Wipes display to desired colour
-	world->Update(TextureManager::Instance()->GetRenderer(), delta, event);
+	world->Update(TextureManager::Instance()->GetRenderer(), delta);
 	SDL_RenderPresent(TextureManager::Instance()->GetRenderer()); //Presents colour
 }
 

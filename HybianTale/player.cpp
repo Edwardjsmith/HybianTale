@@ -7,6 +7,8 @@ Player::Player(const char* filename, float x, float y, int width, int height, in
 	SetSpeed(2.0f);
 	SetActive(true);
 	m_attackDistance = 5.0f;
+
+	mp_entityComponent->AddComponent<InputComponent>(this);
 }
 
 

@@ -133,7 +133,7 @@
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="gameLoop.cpp" />
     <ClCompile Include="IdleState.cpp" />
-    <ClCompile Include="input.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapSection.cpp" />
     <ClCompile Include="MoveToPlayerState.cpp" />
@@ -148,19 +148,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="command.h" />
+    <ClInclude Include="Components.h" />
     <ClInclude Include="defines.h" />
+    <ClInclude Include="ECS.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="gameLoop.h" />
     <ClInclude Include="grid.h" />
     <ClInclude Include="IdleState.h" />
-    <ClInclude Include="input.h" />
+    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="mapSection.h" />
     <ClInclude Include="MoveToPlayerState.h" />
     <ClInclude Include="objectPool.h" />
     <ClInclude Include="physics.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="spacialPartition.h" />
+    <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="textureManager.h" />

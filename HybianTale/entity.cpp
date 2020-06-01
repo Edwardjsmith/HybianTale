@@ -1,37 +1,48 @@
 #include "entity.h"
-
+#include "Components.h"
 
 Entity::Entity(const char* filename, float x, float y, int width, int height, int framesX, int framesY, const char* tag) : m_spriteWidth(width), m_spriteHeight(height)
 {
-	m_tag = tag;
+	//m_tag = tag;
 
-	m_position.x = x;
-	m_position.y = y;
+	//m_position.x = x;
+	//m_position.y = y;
 
-	m_entityTexture = TextureManager::Instance()->load(filename, TextureManager::Instance()->GetRenderer());
+	//m_entityTexture = TextureManager::Instance()->load(filename, TextureManager::Instance()->GetRenderer());
 
-	SDL_QueryTexture(m_entityTexture, NULL, NULL, &m_textureWidth, &m_textureHeight);
+	//SDL_QueryTexture(m_entityTexture, NULL, NULL, &m_textureWidth, &m_textureHeight);
 
-	m_framesX = framesX;
-	m_framesY = framesY;
+	//m_framesX = framesX;
+	//m_framesY = framesY;
 
-	m_frameWidth = m_textureWidth / m_framesX;
-	m_frameHeight = m_textureHeight / m_framesY; 
+	//m_frameWidth = m_textureWidth / m_framesX;
+	//m_frameHeight = m_textureHeight / m_framesY; 
 
-	m_srcRect.w = m_frameWidth;
-	m_srcRect.h = m_frameHeight;
-	m_srcRect.x = 0;
-	m_srcRect.y = 0;
+	//m_srcRect.w = m_frameWidth;
+	//m_srcRect.h = m_frameHeight;
+	//m_srcRect.x = 0;
+	//m_srcRect.y = 0;
 
-	m_destRect.x = (int)m_position.x;
-	m_destRect.y = (int)m_position.y;
-	m_destRect.w = m_srcRect.w * 2;
-	m_destRect.h = m_srcRect.h * 2;
+	//m_destRect.x = (int)m_position.x;
+	//m_destRect.y = (int)m_position.y;
+	//m_destRect.w = m_srcRect.w * 2;
+	//m_destRect.h = m_srcRect.h * 2;
+
+	m_ECSManager = new EntityComponentManager();
+	mp_entityComponent = m_ECSManager->AddEntity();
+
+	mp_entityComponent->AddComponent<PositionComponent>();
+	mp_entityComponent->AddComponent<SpriteComponent>(filename);
 }
 
 
 Entity::~Entity()
 {
+	if (m_ECSManager)
+	{
+		delete m_ECSManager;
+		m_ECSManager = nullptr;
+	}
 }
 
 void Entity::Render(SDL_Renderer* rend)
@@ -66,6 +77,10 @@ void Entity::Update(float delta)
 			m_disableInput = false;
 		}
 	}
+
+	m_ECSManager->Draw();
+	m_ECSManager->Refresh();
+	m_ECSManager->Update();
 }
 
 

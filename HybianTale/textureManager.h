@@ -7,8 +7,8 @@ class TextureManager
 {
 public:
 	
-	SDL_Texture* load(const char* filename, SDL_Renderer* rend);
-	void draw(SDL_Renderer* rend, SDL_Texture* tex, SDL_Rect src, SDL_Rect dest);
+	SDL_Texture* LoadTexture(const char* filename, SDL_Renderer* rend);
+	void Draw(SDL_Renderer* rend, SDL_Texture* tex, SDL_Rect src, SDL_Rect dest);
 	static TextureManager* Instance();
 	SDL_Renderer* GetRenderer() { return m_renderer; }
 	void SetRenderer(SDL_Renderer* ren) { m_renderer = ren; }

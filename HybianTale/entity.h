@@ -3,6 +3,8 @@
 #include "Vector2.h"
 #include "defines.h"
 #include "spacialPartition.h"
+#include "Components.h"
+
 class Entity
 {
 	friend class SpacialPartition;
@@ -56,6 +58,7 @@ public:
 protected:
 	float m_attackDistance = 0.0f;
 	const char* m_tag;
+	EntityComponent* mp_entityComponent;
 private:
 
 	SDL_Texture* m_entityTexture = nullptr;
@@ -91,5 +94,7 @@ private:
 	Entity* mp_prev = nullptr;
 
 	Vector2 m_initialPos;
+
+	EntityComponentManager* m_ECSManager;
 };
 

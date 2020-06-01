@@ -13,11 +13,11 @@ World::World(SDL_Renderer* Renderer)
 	}
 
 	m_player = new Player("Art/hero.png", 0, 0, 16, 16, 3, 4, "player");
-	ObjectPool::Instance()->fillPool(m_player);
+	//ObjectPool::Instance()->fillPool(m_player);
 	m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
-	m_currentSection->EnterSection();
-	m_currentSection->AddEntity(m_player);
-	m_input = new Input();
+	//m_currentSection->EnterSection();
+	//m_currentSection->AddEntity(m_player);
+	//m_input = new Input();
 	
 }
 World::~World()
@@ -36,35 +36,28 @@ World::~World()
 		delete m_player;
 		m_player = nullptr;
 	}
-	if (m_input)
-	{
-		delete m_input;
-		m_input = nullptr;
-	}
-	if (m_command)
-	{
-		delete m_command;
-		m_command = nullptr;
-	}
 }
 
-void World::Update(SDL_Renderer* rend, float delta, SDL_Event event)
+void World::Update(SDL_Renderer* rend, float delta)
 {
 	m_player->Update(delta);
 
-	if (!m_player->InputDisabled())
-	{
-		m_command = m_input->UpdateInput(event);
-	}
+	//if (!m_player->InputDisabled())
+	//{
+	//	m_command = m_input->UpdateInput(event);
+	//}
 
-	if (m_command) //If input detected, execute it.
-	{
-		m_command->Execute(*m_player);
-		CheckSection(); //Only check to change section if we move
-	}
+	//if (m_command) //If input detected, execute it.
+	//{
+	//	m_command->Execute(*m_player);
+	//	CheckSection(); //Only check to change section if we move
+	//}
 
+	//
+	//m_player->Render(rend); //Render player
 	m_currentSection->UpdateSection(delta, rend); //Updates every entity in current section
-	m_player->Render(rend); //Render player
+
+
 }
 
 bool World::BoundsCheck(int index)

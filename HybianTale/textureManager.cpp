@@ -9,7 +9,7 @@ TextureManager::TextureManager()
 }
 
 
-SDL_Texture* TextureManager::load(const char * filename, SDL_Renderer* rend)
+SDL_Texture* TextureManager::LoadTexture(const char * filename, SDL_Renderer* rend)
 {
 	if (!mp_textures->count(filename))
 	{
@@ -28,7 +28,7 @@ SDL_Texture* TextureManager::load(const char * filename, SDL_Renderer* rend)
 	return mp_textures->at(filename);
 }
 
-void TextureManager::draw(SDL_Renderer* rend, SDL_Texture * tex, SDL_Rect src, SDL_Rect dest)
+void TextureManager::Draw(SDL_Renderer* rend, SDL_Texture * tex, SDL_Rect src, SDL_Rect dest)
 {
 	SDL_RenderCopy(rend, tex, &src, &dest);
 }

@@ -24,9 +24,6 @@
     <ClCompile Include="gameLoop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -63,6 +60,9 @@
     <ClCompile Include="MoveToPlayerState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="command.h">
@@ -81,9 +81,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="grid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mapSection.h">
@@ -120,6 +117,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MoveToPlayerState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
