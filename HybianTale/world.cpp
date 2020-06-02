@@ -12,13 +12,11 @@ World::World(SDL_Renderer* Renderer)
 		}
 	}
 
-	m_player = new Player("Art/hero.png", 0, 0, 16, 16, 3, 4, "player");
-	//ObjectPool::Instance()->fillPool(m_player);
+	m_player = new Player("Art/hero.png", 0, 0, 16, 16, 3, 4, 2, "player");
+	ObjectPool::Instance()->fillPool(m_player);
 	m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
-	//m_currentSection->EnterSection();
-	//m_currentSection->AddEntity(m_player);
-	//m_input = new Input();
-	
+	m_currentSection->EnterSection();
+	m_currentSection->AddEntity(m_player);
 }
 World::~World()
 {
@@ -79,19 +77,19 @@ bool World::BoundsCheck(int index)
 //Checks to see if player has left boundaries of screen and changes section
 void World::CheckSection()
 {
-	if (m_player->GetX() < 0)
+	if (m_player->GetComponent<TransformComponent>().m_position.x < 0)
 	{
 		ChangeSectionX(false); //If we want to decrement current section (move left in world) false, else true to go right. Same logic for up and down
 	}
-	else if (m_player->GetX() > SCREEN_WIDTH)
+	else if (m_player->GetComponent<TransformComponent>().m_position.y > SCREEN_WIDTH)
 	{
 		ChangeSectionX(true);
 	}
-	else if (m_player->GetY() < 0)
+	else if (m_player->GetComponent<TransformComponent>().m_position.x < 0)
 	{
 		ChangeSectionY(false);
 	}
-	else if (m_player->GetY() > SCREEN_HEIGHT)
+	else if (m_player->GetComponent<TransformComponent>().m_position.y > SCREEN_HEIGHT)
 	{
 		ChangeSectionY(true);
 	}
@@ -109,7 +107,7 @@ void World::ChangeSectionY(bool increment)
 		if (bounds)
 		{
 			m_currentWorldY++;
-			m_player->SetY(0);
+			m_player->GetComponent<TransformComponent>().m_position.y = 0;
 		}
 	}
 	else
@@ -120,7 +118,7 @@ void World::ChangeSectionY(bool increment)
 		if (bounds)
 		{
 			m_currentWorldY--;
-			m_player->SetY(SCREEN_HEIGHT);
+			m_player->GetComponent<TransformComponent>().m_position.y = SCREEN_HEIGHT;
 		}
 	}
 
@@ -133,7 +131,7 @@ void World::ChangeSectionY(bool increment)
 	}
 	else
 	{
-		m_player->SetY(oldPosY);
+		m_player->GetComponent<TransformComponent>().m_position.y = oldPosY;
 	}
 }
 
@@ -149,7 +147,7 @@ void World::ChangeSectionX(bool increment)
 		if (bounds)
 		{
 			m_currentWorldX++;
-			m_player->SetX(0);
+			m_player->GetComponent<TransformComponent>().m_position.x = 0;
 		}
 	}
 	else
@@ -160,7 +158,7 @@ void World::ChangeSectionX(bool increment)
 		if (bounds)
 		{
 			m_currentWorldX--;
-			m_player->SetX(SCREEN_WIDTH);
+			m_player->GetComponent<TransformComponent>().m_position.x = SCREEN_WIDTH;
 		}
 	}
 
@@ -174,7 +172,7 @@ void World::ChangeSectionX(bool increment)
 	}
 	else
 	{
-		m_player->SetX(oldPosX);
+		m_player->GetComponent<TransformComponent>().m_position.x = oldPosX;
 	}
 }
 

@@ -21,7 +21,7 @@ Entity * ObjectPool::SpawnEntity(const char * tag, Player* target)
 	Entity* ent;
 	if (tag == "enemy1")
 	{
-		ent = new Enemy("Art/hero.png", 0, 0, 16, 16, 3, 4, tag, target);
+		ent = new Enemy("Art/hero.png", 0, 0, 16, 16, 3, 4, 2, tag, target);
 		ent->SetActive(false);
 		return ent;
 	}

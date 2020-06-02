@@ -1,6 +1,8 @@
 #pragma once
-#include "command.h"
+#include "Components.h"
+#include <SDL.h>
 
+class Command;
 
 enum KEYS_PRESSED_LIST
 {
@@ -11,12 +13,12 @@ class InputComponent : public Component
 {
 
 public:
-	InputComponent(Entity* entity);
+	InputComponent();
 	~InputComponent();
 
 	Command* UpdateInput(SDL_Event ev);
 
-	void Update() override;
+	void Update(const float& delta) override;
 	void Init() override;
 
 private:
@@ -29,5 +31,6 @@ private:
 	Command* m_upMove;
 
 	SDL_Event m_event;
-	Entity* mp_entity;
+	TransformComponent* m_transformComponent;
+	Command* m_command;
 };

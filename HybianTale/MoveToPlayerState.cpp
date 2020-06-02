@@ -26,7 +26,7 @@ void MoveToPlayerState::EnterState()
 
 void MoveToPlayerState::UpdateState()
 {
-	if (Vector2::Distance(GetAgent()->GetPosition(), GetAgent()->GetTarget()->GetPosition()) > GetAgent()->GetAgressionRadius())
+	/*if (Vector2::Distance(GetAgent()->GetPosition(), GetAgent()->GetTarget()->GetPosition()) > GetAgent()->GetAgressionRadius())
 	{
 		(*lostPlayer) = true;
 	}
@@ -46,7 +46,7 @@ void MoveToPlayerState::UpdateState()
 	if (GetAgent()->GetY() > GetAgent()->GetTarget()->GetY())
 	{
 		GetAgent()->MoveY(-GetAgent()->GetSpeed(), true);
-	}
+	}*/
 }
 
 void MoveToPlayerState::ExitState()

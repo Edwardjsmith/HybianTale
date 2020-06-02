@@ -3,12 +3,12 @@
   InputComponent.cpp
   MoveToPlayerState.cpp
   StateMachine.cpp
+  command.cpp
   entity.cpp
   gameLoop.cpp
   main.cpp
   mapSection.cpp
   objectPool.cpp
-  physics.cpp
   player.cpp
   spacialPartition.cpp
   world.cpp

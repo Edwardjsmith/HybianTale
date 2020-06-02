@@ -1,52 +1,36 @@
 #pragma once
-#include "entity.h"
-#include <iostream>
+#include "Components.h"
+
 
 class Command
 {
 public:
 
-	virtual void Execute(Entity& Entity) = 0;
+	virtual void Execute(TransformComponent* transform) = 0;
 	virtual ~Command() {};
 };
 
 class LeftCommand : public Command
 {
 public:
-	virtual void Execute(Entity& Entity)
-	{
-		//Entity.MoveX(-Entity.GetSpeed(), false);
-		printf("Left\n");
-	}
+	virtual void Execute(TransformComponent* transform);
 };
 
 class UpCommand : public Command
 {
 public:
-	virtual void Execute(Entity& Entity)
-	{
-		//Entity.MoveY(-Entity.GetSpeed(), true);
-		printf("Up\n");
-	}
+	virtual void Execute(TransformComponent* transform);
 };
 
 class RightCommand : public Command
 {
 public:
-	virtual void Execute(Entity& Entity)
-	{
-		//Entity.MoveX(Entity.GetSpeed(), true);
-		printf("Right\n");
-	}
+	virtual void Execute(TransformComponent* transform);
 };
 
 class DownCommand : public Command
 {
 public:
-	virtual void Execute(Entity& Entity)
-	{
-		//Entity.MoveY(Entity.GetSpeed(), false);
-		printf("Down\n");
-	}
+	virtual void Execute(TransformComponent* transform);
 };
 

@@ -129,6 +129,8 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="command.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="gameLoop.cpp" />
@@ -138,7 +140,6 @@
     <ClCompile Include="mapSection.cpp" />
     <ClCompile Include="MoveToPlayerState.cpp" />
     <ClCompile Include="objectPool.cpp" />
-    <ClCompile Include="physics.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="spacialPartition.cpp" />
     <ClCompile Include="StateMachine.cpp" />
@@ -147,6 +148,8 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColliderComponent.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="command.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="defines.h" />
@@ -160,7 +163,6 @@
     <ClInclude Include="mapSection.h" />
     <ClInclude Include="MoveToPlayerState.h" />
     <ClInclude Include="objectPool.h" />
-    <ClInclude Include="physics.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="spacialPartition.h" />

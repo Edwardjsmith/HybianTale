@@ -3,3 +3,4 @@
 #include "PositionComponent.h"
 #include "SpriteComponent.h"
 #include "InputComponent.h"
+#include "ColliderComponent.h"

@@ -13,7 +13,7 @@ GameLoop::~GameLoop()
 }
 
 
-void GameLoop::Run(float delta)
+void GameLoop::Run(const float& delta)
 {
 	HandleEvents(delta);
 }
@@ -52,7 +52,7 @@ void GameLoop::Init()
 	m_running = true;
 }
 
-void GameLoop::HandleEvents(float delta)
+void GameLoop::HandleEvents(const float& delta)
 {
 	SDL_RenderClear(TextureManager::Instance()->GetRenderer()); //Wipes display to desired colour
 	world->Update(TextureManager::Instance()->GetRenderer(), delta);

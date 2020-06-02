@@ -7,7 +7,7 @@ public:
 	GameLoop();
 	~GameLoop();
 
-	void Run(float delta);
+	void Run(const float& delta);
 	void render();
 	bool Running();
 
@@ -15,7 +15,7 @@ private:
 
 	bool m_running = false;
 	void Init();
-	void HandleEvents(float delta);
+	void HandleEvents(const float& delta);
 
 	//Screen position constants
 	const int screenPosX = 50;

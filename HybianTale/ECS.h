@@ -35,6 +35,7 @@ public:
 
 	virtual void Init() {};
 	virtual void Update() {};
+	virtual void Update(const float& delta) {};
 	virtual void Draw() {};
 
 	virtual ~Component() {};
@@ -43,9 +44,13 @@ public:
 class EntityComponent
 {
 public:
-	void Update()
+	void Update(const float& delta)
 	{
-		for (auto& c : components) c->Update();
+		for (auto& c : components)
+		{
+			c->Update();
+			c->Update(delta);
+		}
 	}
 	void Draw()
 	{
@@ -56,7 +61,7 @@ public:
 
 	template <typename T> bool HasComponent()
 	{
-		return componentBitSet[GetComponentID<T>];
+		return componentBitSet[GetComponentTypeID<T>()];
 	}
 
 	template <typename T, typename... TArgs>
@@ -95,11 +100,11 @@ private:
 	std::vector<std::unique_ptr<EntityComponent>> entityComponents;
 
 public:
-	void Update()
+	void Update(const float& delta)
 	{
 		for (auto& entComps : entityComponents)
 		{
-			entComps->Update();
+			entComps->Update(delta);
 		}
 	}
 	void Draw()

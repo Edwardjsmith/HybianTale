@@ -67,7 +67,6 @@ void MapSection::UpdateSection(float delta, SDL_Renderer * ren)
 		if (ent->IsActive())
 		{
 			ent->Update(delta);
-			ent->Render(ren);
 		}
 	}
 	for (Entity* ent : ObjectPool::Instance()->GetActiveTerrain())
@@ -75,7 +74,6 @@ void MapSection::UpdateSection(float delta, SDL_Renderer * ren)
 		if (ent->IsActive())
 		{
 			ent->Update(delta);
-			ent->Render(ren);
 		}
 	}
 }
@@ -92,7 +90,6 @@ void MapSection::LeaveSection()
 		if (ent->IsActive())
 		{
 			ent->SetActive(false);
-			ent->SetPosition(ent->GetInitialPos());
 		}
 	}
 	for (Entity* ent : ObjectPool::Instance()->GetActiveTerrain())
@@ -100,7 +97,6 @@ void MapSection::LeaveSection()
 		if (ent->IsActive())
 		{
 			ent->SetActive(false);
-			ent->SetPosition(ent->GetInitialPos());
 		}
 	}
 }
@@ -111,7 +107,7 @@ void MapSection::EnterSection()
 
 	for (it = m_enemyPos.begin(); it != m_enemyPos.end(); it++)
 	{
-		ObjectPool::Instance()->GetPooledEnemy(it->first)->SetPosition(it->second);
+		ObjectPool::Instance()->GetPooledEnemy(it->first)->GetComponent<TransformComponent>().m_position =it->second;
 	}
 
 	for (Entity* ent : ObjectPool::Instance()->GetActiveEnemies())

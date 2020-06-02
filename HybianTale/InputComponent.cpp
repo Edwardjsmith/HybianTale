@@ -1,8 +1,10 @@
 #include "InputComponent.h"
+#include "command.h"
 
-InputComponent::InputComponent(Entity* entity)
+
+InputComponent::InputComponent()
 {
-	mp_entity = entity;
+
 }
 
 InputComponent::~InputComponent()
@@ -78,7 +80,7 @@ Command* InputComponent::UpdateInput(SDL_Event ev)
 	else if (ev.type == SDL_KEYUP)
 	{
 		SDL_Keycode keyPressed = ev.key.keysym.sym;
-
+		m_transformComponent->m_velocity = { 0,0 };
 		switch (keyPressed)
 		{
 		case SDLK_DOWN:
@@ -130,19 +132,21 @@ Command* InputComponent::UpdateInput(SDL_Event ev)
 
 }
 
-void InputComponent::Update()
+void InputComponent::Update(const float& delta)
 {
 	SDL_PollEvent(&m_event);
-	Command* command = UpdateInput(m_event);
+	m_command = UpdateInput(m_event);
 
-	if (command)
+	if (m_command)
 	{
-		command->Execute(*mp_entity);
+		m_command->Execute(m_transformComponent);
 	}
 }
 
 void InputComponent::Init()
 {
+	m_transformComponent = &entity->GetComponent<TransformComponent>();
+
 	m_leftMove = new LeftCommand();
 	m_rightMove = new RightCommand();
 	m_upMove = new UpCommand();

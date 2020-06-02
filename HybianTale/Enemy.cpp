@@ -2,12 +2,13 @@
 #include "StateMachine.h"
 
 
-Enemy::Enemy(const char* filename, float x, float y, int width, int height, int framesX, int framesY, const char* tag, Entity* target) : Entity(filename, x, y, width, height, framesX, framesY, tag)
+Enemy::Enemy(const char* filename, float x, float y, int width, int height, float scale, int framesX, int framesY, const char* tag, Entity* target) : Entity(filename, x, y, width, height, scale, framesX, framesY, tag)
 {
 	this->mp_target = target;
 	mp_stateMachine = new StateMachine(this);
-	SetSpeed(1.0f);
 	SetActive(true);
+	mp_entityComponent->GetComponent<TransformComponent>().m_transformSpeed = 1.0f;
+	mp_entityComponent->AddComponent<ColliderComponent>(tag);
 }
 
 
@@ -20,7 +21,7 @@ Enemy::~Enemy()
 	}
 }
 
-void Enemy::Update(float delta)
+void Enemy::Update(const float& delta)
 {
 	Entity::Update(delta);
 

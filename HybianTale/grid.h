@@ -27,7 +27,7 @@ public:
 
 	virtual void Add(Entity* ent) = 0; 
 	virtual void HandleCell(Entity* ent) = 0;
-	virtual void MoveEntity(Entity* ent, const float& x, const float& y) = 0;
+	virtual void TrackEntity(Entity* ent) = 0;
 	
 protected:
 
@@ -35,9 +35,4 @@ protected:
 	static const int NUM_CELLS = 10;
 
 	Entity* m_cells[NUM_CELLS][NUM_CELLS];
-
-
-	//Store old position values to revert to on collision
-	float m_oldX = 0.0f;
-	float m_oldY = 0.0f;
 };

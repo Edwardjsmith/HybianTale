@@ -1,5 +1,6 @@
 #include "spacialPartition.h"
 #include "entity.h"
+#include "Collision.h"
 
 
 SpacialPartition::SpacialPartition() : Grid()
@@ -15,8 +16,8 @@ SpacialPartition::~SpacialPartition()
 void SpacialPartition::Add(Entity* ent)
 {
 	//Determine which cell the entity is in
-	int cellX = (int)(ent->GetX() / CELL_SIZE);
-	int cellY = (int)(ent->GetY() / CELL_SIZE);
+	int cellX = (int)(ent->GetComponent<TransformComponent>().m_position.x / CELL_SIZE);
+	int cellY = (int)(ent->GetComponent<TransformComponent>().m_position.y / CELL_SIZE);
 
 	//Adds the entity to the front of the list of entitities
 	if (ent->mp_prev)
@@ -47,19 +48,16 @@ void SpacialPartition::Remove(Entity * ent)
 
 void SpacialPartition::HandleCell(Entity * entity1)
 {
-	while(entity1 != nullptr)
+	while(entity1 != nullptr && entity1->HasComponent<ColliderComponent>())
 	{
 		//Set entity2 to what is next in the grid in entity
 		Entity* entity2 = entity1->mp_next;
 
-		while(entity2 != nullptr)
+		while(entity2 != nullptr && entity2->HasComponent<ColliderComponent>())
 		{
+			if (Collision::AABB(entity1->GetComponent<ColliderComponent>().m_collider, entity2->GetComponent<ColliderComponent>().m_collider))
 			{
-				if (Physics::instance()->collision(entity1, entity2))
-				{
-					printf("Collided\n");
-					entity1->SetPosition(entity1->m_oldPosition);
-				}
+				printf("Collision!");
 			}
 
 			//Entity2 now points to the next in the list of current cell
@@ -75,23 +73,17 @@ void SpacialPartition::HandleCell(Entity * entity1)
 	//printf("End handlecell..\n");
 }
 
-void SpacialPartition::MoveEntity(Entity * entity, const float& x, const float& y)
+void SpacialPartition::TrackEntity(Entity * entity)
 {
 	DBG_ASSERT(entity);
-	//Store old pos to revert back to on collision
-	(*entity).m_oldPosition = entity->GetPosition();
 
 	//Checks what cell the player is in
-	int oldCellX = ((int)entity->GetX() / CELL_SIZE);
-	int oldCellY = ((int)entity->GetY() / CELL_SIZE);
+	int oldCellX = ((int)entity->GetComponent<TransformComponent>().m_oldPosition.x / CELL_SIZE);
+	int oldCellY = ((int)entity->GetComponent<TransformComponent>().m_oldPosition.y / CELL_SIZE);
 
 	//Checks the cell the player is moving to
-	int cellX = (int)(x / CELL_SIZE);
-	int cellY = (int)(y / CELL_SIZE);
-
-	//Move entity
-	entity->SetX(x);
-	entity->SetY(y);
+	int cellX = (int)(entity->GetComponent<TransformComponent>().m_position.x / CELL_SIZE);
+	int cellY = (int)((int)entity->GetComponent<TransformComponent>().m_position.y / CELL_SIZE);
 
 	//If the entity is still in the same cell, break
 	if (oldCellX == cellX && oldCellY == cellY)
