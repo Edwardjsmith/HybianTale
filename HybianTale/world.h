@@ -4,14 +4,16 @@
 class World
 {
 public:
-	World(SDL_Renderer* Renderer);
+	World();
 	~World();
 
-	void Update(SDL_Renderer* rend, float delta);
+	void Update(float delta);
 	bool BoundsCheck(int index);
 	
 	MapSection* m_map[WORLD_SIZE][WORLD_SIZE];
 	MapSection* m_currentSection;
+
+	
 
 private:
 

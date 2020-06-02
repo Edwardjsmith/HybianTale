@@ -30,7 +30,7 @@ MapSection::~MapSection()
 	m_terrain.clear();
 }
 
-void MapSection::LoadSection(std::string filename, SDL_Renderer * ren)
+void MapSection::LoadSection(std::string filename)
 {
 	char tile;
 	std::fstream map;
@@ -60,7 +60,7 @@ void MapSection::LoadSection(std::string filename, SDL_Renderer * ren)
 	map.close();
 }
 
-void MapSection::UpdateSection(float delta, SDL_Renderer * ren)
+void MapSection::UpdateSection(float delta)
 {
 	for (Entity* ent : ObjectPool::Instance()->GetActiveEnemies())
 	{

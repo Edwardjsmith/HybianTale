@@ -1,5 +1,5 @@
 #include "world.h"
-World::World(SDL_Renderer* Renderer)
+World::World()
 {
 	for (int i = 0; i < WORLD_SIZE; i++)
 	{
@@ -8,7 +8,7 @@ World::World(SDL_Renderer* Renderer)
 			m_map[i][j] = new MapSection();
 
 			std::string file = "Art/0.txt";
-			m_map[i][j]->LoadSection(file, Renderer);
+			m_map[i][j]->LoadSection(file);
 		}
 	}
 
@@ -36,26 +36,10 @@ World::~World()
 	}
 }
 
-void World::Update(SDL_Renderer* rend, float delta)
+void World::Update(float delta)
 {
 	m_player->Update(delta);
-
-	//if (!m_player->InputDisabled())
-	//{
-	//	m_command = m_input->UpdateInput(event);
-	//}
-
-	//if (m_command) //If input detected, execute it.
-	//{
-	//	m_command->Execute(*m_player);
-	//	CheckSection(); //Only check to change section if we move
-	//}
-
-	//
-	//m_player->Render(rend); //Render player
-	m_currentSection->UpdateSection(delta, rend); //Updates every entity in current section
-
-
+	m_currentSection->UpdateSection(delta); //Updates every entity in current section
 }
 
 bool World::BoundsCheck(int index)
@@ -165,7 +149,7 @@ void World::ChangeSectionX(bool increment)
 	if (bounds)
 	{
 		m_currentSection->LeaveSection();
-		m_currentSection->m_partition->Remove(m_player);
+		m_currentSection->GetPartition()->Remove(m_player);
 		m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
 		m_currentSection->EnterSection();
 		m_currentSection->AddEntity(m_player);
