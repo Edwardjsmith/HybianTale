@@ -25,8 +25,8 @@ public:
 	{
 		m_collider.x = m_transformComponent->m_position.x;
 		m_collider.y = m_transformComponent->m_position.y;
-		m_collider.w = m_transformComponent->m_width * m_transformComponent->m_scale;
-		m_collider.h = m_transformComponent->m_height * m_transformComponent->m_scale;
+		m_collider.w = m_transformComponent->m_width;
+		m_collider.h = m_transformComponent->m_height;
 	}
 
 private:

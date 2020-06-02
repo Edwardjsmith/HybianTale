@@ -137,7 +137,7 @@ void InputComponent::Update(const float& delta)
 	SDL_PollEvent(&m_event);
 	m_command = UpdateInput(m_event);
 
-	if (m_command)
+	if (m_command && !disableInput)
 	{
 		m_command->Execute(m_transformComponent);
 	}

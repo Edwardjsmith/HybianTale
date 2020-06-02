@@ -58,6 +58,11 @@ void SpacialPartition::HandleCell(Entity * entity1)
 			if (Collision::AABB(entity1->GetComponent<ColliderComponent>().m_collider, entity2->GetComponent<ColliderComponent>().m_collider))
 			{
 				printf("Collision!");
+				if (entity1->m_tag == "player")
+				{
+					entity1->GetComponent<TransformComponent>().m_velocity.x *= -1;
+					entity1->GetComponent<TransformComponent>().m_velocity.y *= -1;
+				}
 			}
 
 			//Entity2 now points to the next in the list of current cell

@@ -21,6 +21,8 @@ public:
 	void Update(const float& delta) override;
 	void Init() override;
 
+	bool disableInput = false;
+
 private:
 
 	bool m_keysPressed[KEY_NUM_OF];

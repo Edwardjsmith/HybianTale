@@ -23,8 +23,8 @@ public:
 		m_textureWidth = m_transformComponent->m_width;
 		m_textureHeight = m_transformComponent->m_height;
 
-		m_frameWidth = m_textureWidth / m_framesX;
-		m_frameHeight = m_textureHeight / m_framesY;
+		m_frameWidth = m_textureWidth;
+		m_frameHeight = m_textureHeight;
 
 		m_srcRect.w = m_frameWidth;
 		m_srcRect.h = m_frameHeight;
