@@ -1,4 +1,5 @@
-﻿  InputComponent.cpp
+﻿  gameLoop.cpp
+  main.cpp
   mapSection.cpp
   world.cpp
   Generating Code...

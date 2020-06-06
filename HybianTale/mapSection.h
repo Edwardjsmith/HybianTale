@@ -30,8 +30,8 @@ public:
 
 private:
 
-	std::map<const char*, Vector2> m_terrain;
-	std::map<const char*, Vector2> m_enemyPos;
+	std::multimap<const char*, Vector2> m_terrain;
+	std::multimap<const char*, Vector2> m_enemyPos;
 
 	const int SIZE_Y = SCREEN_HEIGHT / 32;
 	const int SIZE_X = SCREEN_WIDTH / 32;

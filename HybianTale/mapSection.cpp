@@ -44,13 +44,13 @@ void MapSection::LoadSection(std::string filename,int offsetx, int offsety)
 			switch (tile)
 			{
 			case '-1':
-				AddEnemyPos("en1", Vector2(i * 32, j * 32));
+				AddEnemyPos("enemy1", Vector2(i * 32, j * 32));
 				break;
 			case '0':
-				AddEnemyPos("en2", Vector2(i * 32, j * 32));
+				AddEnemyPos("enemy1", Vector2(i * 32, j * 32));
 				break;
 			case '1':
-				AddEnemyPos("en3", Vector2(i * 32, j * 32));
+				AddEnemyPos("enemy1", Vector2(i * 32, j * 32));
 				break;
 			case '2':
 				break;
@@ -167,7 +167,7 @@ void MapSection::EnterSection()
 
 void MapSection::AddEnemyPos(const char * tag, Vector2 pos)
 {
-	m_enemyPos.insert(std::pair<const char*, Vector2>(tag, pos));
+	m_enemyPos.emplace(tag, pos);
 }
 
 
