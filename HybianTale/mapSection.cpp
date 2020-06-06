@@ -1,5 +1,6 @@
 #include "mapSection.h"
 
+#include "usefull_functions.h"
 
 
 MapSection::MapSection()
@@ -32,6 +33,17 @@ MapSection::~MapSection()
 
 void MapSection::LoadSection(std::string filename)
 {
+	
+	
+	std::vector<std::vector<int>> map_tiles = ReadBMP_Blue(filename);
+	//std::vector<std::vector<int>> map_objs = ReadBMP_Green(filename);
+	//std::vector<std::vector<int>> map_overlays = ReadBMP_Red(filename);
+
+
+
+
+	/*
+	
 	char tile;
 	std::fstream map;
 
@@ -58,6 +70,8 @@ void MapSection::LoadSection(std::string filename)
 		}
 	}
 	map.close();
+	
+	*/
 }
 
 void MapSection::UpdateSection(float delta)

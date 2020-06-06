@@ -7,7 +7,7 @@ World::World()
 		{
 			m_map[i][j] = new MapSection();
 
-			std::string file = "Art/0.txt";
+			std::string file = "Art/0.bmp";
 			m_map[i][j]->LoadSection(file);
 		}
 	}
