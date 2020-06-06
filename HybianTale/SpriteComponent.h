@@ -2,18 +2,43 @@
 #include "Components.h"
 #include "TextureManager.h"
 
+
+struct Animation
+{
+public:
+
+	Animation(int index, int frames, int speed)
+	{
+		m_index = index;
+		m_frames = frames;
+		m_speed = speed;
+	}
+
+	int m_index;
+	int m_frames;
+	float m_speed;
+};
+
 class SpriteComponent : public Component
 {
 public:
 	SpriteComponent() = default;
-	SpriteComponent(const char* texPath, int framesX, int framesY)
+	SpriteComponent(const char* texPath, bool animated)
 	{
 		m_texture = TextureManager::Instance()->LoadTexture(texPath, TextureManager::Instance()->GetRenderer());
 
 		SDL_QueryTexture(m_texture, NULL, NULL, &m_textureWidth, &m_textureHeight);
 
-		m_framesX = framesX;
-		m_framesY = framesY;
+		m_animated = animated;
+	}
+
+	~SpriteComponent()
+	{
+		for (std::map<const char*, Animation*>::iterator itr = m_animations.begin(); itr != m_animations.end(); ++itr)
+		{
+			delete itr->first;
+			delete itr->second;
+		}
 	}
 
 	void Init() override
@@ -39,13 +64,20 @@ public:
 
 	void Update() override 
 	{
+		if (m_animated)
+		{
+			m_srcRect.x = m_frameWidth * ((int)(SDL_GetTicks() / m_speed) % m_frames);
+		}
+
+		m_srcRect.y = m_textureHeight * m_frameIndex;
+
 		m_destRect.x = m_transformComponent->m_position.x;
 		m_destRect.y = m_transformComponent->m_position.y;
 	}
 
 	void Draw() override 
 	{
-		TextureManager::Instance()->Draw(TextureManager::Instance()->GetRenderer(), m_texture, m_srcRect, m_destRect);
+		TextureManager::Instance()->Draw(TextureManager::Instance()->GetRenderer(), m_texture, m_srcRect, m_destRect, m_flipSprite);
 	}
 
 	int GetFrameWidth()
@@ -68,16 +100,39 @@ public:
 		return m_transformComponent->m_position.y + (m_destRect.h);
 	}
 
+	void PlayAnimation(const char* name)
+	{
+		m_frames = m_animations[name]->m_frames;
+		m_frameIndex = m_animations[name]->m_index;
+		m_speed = m_animations[name]->m_speed;
+	}
+
+	void AddAnimation(const char* name, int frameIndex, int frames, float speed)
+	{
+		Animation* anim = new Animation(frameIndex, frames, speed);
+		m_animations.emplace(name, anim);
+	}
+
+	void FlipSprite(bool flip)
+	{
+		m_flipSprite = flip;
+	}
+	
+
 private:
 	TransformComponent* m_transformComponent;
 	SDL_Texture* m_texture;
 	SDL_Rect m_srcRect, m_destRect;
 
-	bool m_flipTexture = false;
+	bool m_flipSprite = false;
+	bool m_animated = false;
+
+	float m_speed = 0.0f;
 	int m_frameWidth = 0;
 	int m_frameHeight = 0;
 	int m_textureWidth = 0;
 	int m_textureHeight = 0;
-	int m_framesX;
-	int m_framesY;
+	int m_frames = 1;
+	int m_frameIndex = 1;
+	std::map<const char*, Animation*> m_animations;
 };

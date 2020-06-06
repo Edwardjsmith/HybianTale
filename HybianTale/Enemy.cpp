@@ -2,7 +2,7 @@
 #include "StateMachine.h"
 
 
-Enemy::Enemy(const char* filename, float x, float y, int width, int height, float scale, int framesX, int framesY, const char* tag, Entity* target) : Entity(filename, x, y, width, height, scale, framesX, framesY, tag)
+Enemy::Enemy(const char* filename, float x, float y, int width, int height, float scale, const char* tag, Entity* target) : Entity(filename, x, y, width, height, scale,tag)
 {
 	this->mp_target = target;
 	mp_stateMachine = new StateMachine(this);

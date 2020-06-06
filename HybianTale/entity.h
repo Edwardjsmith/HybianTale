@@ -8,7 +8,7 @@ class Entity
 {
 	friend class SpacialPartition;
 public:
-	Entity(const char* filename, float x, float y, int width, int height, float scale, int framesX, int framesY, const char* tag);
+	Entity(const char* filename, float x, float y, int width, int height, float scale, const char* tag);
 	~Entity();
 
 	virtual void Update(const float& delta);

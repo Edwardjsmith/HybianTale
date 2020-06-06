@@ -49,22 +49,30 @@ Command* InputComponent::UpdateInput(SDL_Event ev)
 
 		case SDLK_DOWN:
 			m_keysPressed[KEY_DOWN] = true;
+			m_spriteComponent->PlayAnimation("moveDown");
+			m_spriteComponent->FlipSprite(false);
 			break;
 
 
 		case SDLK_LEFT:
 
 			m_keysPressed[KEY_LEFT] = true;
+			m_spriteComponent->PlayAnimation("moveSide");
+			m_spriteComponent->FlipSprite(false);
 			break;
 
 
 		case SDLK_RIGHT:
 
 			m_keysPressed[KEY_RIGHT] = true;
+			m_spriteComponent->PlayAnimation("moveSide");
+			m_spriteComponent->FlipSprite(true);
 			break;
 
 		case SDLK_UP:
 			m_keysPressed[KEY_UP] = true;
+			m_spriteComponent->PlayAnimation("moveUp");
+			m_spriteComponent->FlipSprite(false);
 			break;
 
 		case SDLK_ESCAPE:
@@ -85,17 +93,21 @@ Command* InputComponent::UpdateInput(SDL_Event ev)
 		{
 		case SDLK_DOWN:
 			m_keysPressed[KEY_DOWN] = false;
+			m_spriteComponent->PlayAnimation("idleDown");
 			break;
 
 		case SDLK_LEFT:
 			m_keysPressed[KEY_LEFT] = false;
+			m_spriteComponent->PlayAnimation("idleSide");
 			break;
 		case SDLK_RIGHT:
 			m_keysPressed[KEY_RIGHT] = false;
+			m_spriteComponent->PlayAnimation("idleSide");
 			break;
 
 		case SDLK_UP:
 			m_keysPressed[KEY_UP] = false;
+			m_spriteComponent->PlayAnimation("idleUp");
 			break;
 
 		case SDLK_ESCAPE:
@@ -146,6 +158,7 @@ void InputComponent::Update(const float& delta)
 void InputComponent::Init()
 {
 	m_transformComponent = &entity->GetComponent<TransformComponent>();
+	m_spriteComponent = &entity->GetComponent<SpriteComponent>();
 
 	m_leftMove = new LeftCommand();
 	m_rightMove = new RightCommand();

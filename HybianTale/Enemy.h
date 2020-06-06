@@ -6,7 +6,7 @@ class Enemy :
 	public Entity
 {
 public:
-	Enemy(const char* filename, float x, float y, int width, int height, float scale, int framesX, int framesY, const char* tag, Entity* target);
+	Enemy(const char* filename, float x, float y, int width, int height, float scale, const char* tag, Entity* target);
 	~Enemy();
 
 	void Update(const float& delta) override;

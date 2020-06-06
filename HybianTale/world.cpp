@@ -12,7 +12,7 @@ World::World()
 		}
 	}
 
-	m_player = new Player("Art/hero.png", 0, 0, 16, 16, 3, 4, 2, "player");
+	m_player = new Player("Art/hero.png", 0, 0, 16, 16, 3, "player");
 	ObjectPool::Instance()->fillPool(m_player);
 	m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
 	m_currentSection->EnterSection();

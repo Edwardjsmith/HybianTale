@@ -1,13 +1,13 @@
 #include "entity.h"
 #include "Components.h"
 
-Entity::Entity(const char* filename, float x, float y, int width, int height, float scale, int framesX, int framesY, const char* tag)
+Entity::Entity(const char* filename, float x, float y, int width, int height, float scale, const char* tag)
 {
 	m_ECSManager = new EntityComponentManager();
 	mp_entityComponent = m_ECSManager->AddEntity();
 
 	mp_entityComponent->AddComponent<TransformComponent>(x, y, width, height, scale);
-	mp_entityComponent->AddComponent<SpriteComponent>(filename, framesX, framesY);
+	mp_entityComponent->AddComponent<SpriteComponent>(filename, true);
 	m_tag = tag;
 }
 

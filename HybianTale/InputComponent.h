@@ -34,5 +34,6 @@ private:
 
 	SDL_Event m_event;
 	TransformComponent* m_transformComponent;
+	SpriteComponent* m_spriteComponent;
 	Command* m_command;
 };

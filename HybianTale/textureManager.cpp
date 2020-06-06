@@ -28,9 +28,10 @@ SDL_Texture* TextureManager::LoadTexture(const char * filename, SDL_Renderer* re
 	return mp_textures->at(filename);
 }
 
-void TextureManager::Draw(SDL_Renderer* rend, SDL_Texture * tex, SDL_Rect src, SDL_Rect dest)
+void TextureManager::Draw(SDL_Renderer* rend, SDL_Texture * tex, SDL_Rect src, SDL_Rect dest, bool flip)
 {
-	SDL_RenderCopy(rend, tex, &src, &dest);
+	SDL_RendererFlip sdlFlip = flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+	SDL_RenderCopyEx(rend, tex, &src, &dest, 0, 0, sdlFlip);
 }
 
 TextureManager* TextureManager::Instance()
