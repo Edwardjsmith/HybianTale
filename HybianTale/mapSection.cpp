@@ -1,6 +1,6 @@
 #include "mapSection.h"
-
 #include "usefull_functions.h"
+
 
 
 MapSection::MapSection()
@@ -31,11 +31,36 @@ MapSection::~MapSection()
 	m_terrain.clear();
 }
 
-void MapSection::LoadSection(std::string filename)
+void MapSection::LoadSection(std::string filename,int offsetx, int offsety)
 {
 	
-	
-	std::vector<std::vector<int>> map_tiles = ReadBMP_Blue(filename);
+	std::vector<std::string> map = LoadTextFile_WithSplit(filename,',');
+
+	for (int i = 0; i < SIZE_X; i++)
+	{
+		for (int j = 0; j < SIZE_Y; j++)
+		{
+			char tile = *map[i*SIZE_X + j].c_str();
+			switch (tile)
+			{
+			case '-1':
+				AddEnemyPos("en1", Vector2(i * 32, j * 32));
+				break;
+			case '0':
+				AddEnemyPos("en2", Vector2(i * 32, j * 32));
+				break;
+			case '1':
+				AddEnemyPos("en3", Vector2(i * 32, j * 32));
+				break;
+			case '2':
+				break;
+			case '3':
+				break;
+			}
+		}
+	}
+	//std::vector<std::vector<int>> map_tiles = ReadBMP_Blue(filename);
+
 	//std::vector<std::vector<int>> map_objs = ReadBMP_Green(filename);
 	//std::vector<std::vector<int>> map_overlays = ReadBMP_Red(filename);
 

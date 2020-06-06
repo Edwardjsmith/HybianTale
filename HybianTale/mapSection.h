@@ -6,11 +6,14 @@
 #include <fstream>
 #include <string>
 
+
 class MapSection 
 {
 public:
 	MapSection();
 	~MapSection();
+
+	void LoadSection(std::string filename, int offsetx, int offsety);
 
 	void LoadSection(std::string filename);
 	void UpdateSection(float delta);
@@ -30,8 +33,8 @@ private:
 	std::map<const char*, Vector2> m_terrain;
 	std::map<const char*, Vector2> m_enemyPos;
 
-	const int SIZE_Y = SCREEN_HEIGHT / 16;
-	const int size_x = SCREEN_WIDTH / 16;
+	const int SIZE_Y = SCREEN_HEIGHT / 32;
+	const int SIZE_X = SCREEN_WIDTH / 32;
 
 	SpacialPartition* m_partition;
 };

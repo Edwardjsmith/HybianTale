@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -168,3 +169,24 @@ std::vector<std::vector<int>> ReadBMP_Green(std::string filename)
 
 	return t;
 };
+std::vector<std::string> LoadTextFile_WithSplit(std::string filename, char spliter) {
+	
+	std::vector<std::string> data;
+	std::ifstream MyReadFile(filename);
+	std::string myText;
+	while (getline(MyReadFile, myText)) {
+		std::string temp = "";
+		for (int i = 0; i < myText.length(); i++) {
+			if (myText.at(i) == spliter) {
+				data.push_back(temp);
+				temp = "";
+			}
+			else {
+				temp.push_back(myText.at(i));
+			}
+		}
+	}
+
+	MyReadFile.close();
+	return data;
+}
