@@ -35,7 +35,7 @@ std::vector<std::vector<int>> ReadBMP(std::string filename)
 	{
 		std::vector<int> w;
 		fread(data, sizeof(unsigned char), row_padded, f);
-		for (int j = 0; j < width * 3; j += 3)
+		for (int j = 0; j < width * 4; j += 4)
 		{
 			// Convert (B, G, R) to (R, G, B)
 			tmp = data[j];
@@ -85,6 +85,7 @@ std::vector<std::vector<int>> ReadBMP_Blue(std::string filename)
 			tmp = data[j];
 			data[j] = data[j + 2];
 			data[j + 2] = tmp;
+
 			int b = tmp;
 			w.push_back(std::stoi( std::to_string(b)));
 		}
@@ -199,10 +200,11 @@ std::vector<std::string> LoadTextFile_WithSplit(std::string filename, char split
 }
 std::vector<tilecoord> breakspritesheet(std::string filename, int spliter_red, int spliter_green, int spliter_blue) {
 	std::vector<tilecoord> tiles;
+	//std::vector<std::vector<int>> rgb = ReadBMP(filename);
 	std::vector<std::vector<int>> red = ReadBMP_Red(filename);
 	std::vector<std::vector<int>> green = ReadBMP_Green(filename);
 	std::vector<std::vector<int>> blue = ReadBMP_Blue(filename);
-
+	 
 	for (int x = 0; x < red.size(); x++) {
 		for (int y = 0; y < red[x].size(); y++) {
 			if (red[x][y] == spliter_red && green[x][y] == spliter_green && blue[x][y] == spliter_blue) {
