@@ -4,3 +4,4 @@
 #include "SpriteComponent.h"
 #include "InputComponent.h"
 #include "ColliderComponent.h"
+#include "SoundComponent.h"
