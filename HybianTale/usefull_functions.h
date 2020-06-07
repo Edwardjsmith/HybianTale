@@ -205,17 +205,19 @@ std::vector<tilecoord> breakspritesheet(std::string filename, int spliter_red, i
 	std::vector<std::vector<int>> green = ReadBMP_Green(filename);
 	std::vector<std::vector<int>> blue = ReadBMP_Blue(filename);
 	 
-	for (int x = 0; x < red.size(); x++) {
-		for (int y = 0; y < red[x].size(); y++) {
-			if (red[x][y] == spliter_red && green[x][y] == spliter_green && blue[x][y] == spliter_blue) {
+
+	for (int y = 0; y < red[0].size(); y++) {
+		for (int x = 0; x < red.size(); x++) {
+			if (red[red.size()-1-x][y] == spliter_red && green[red.size() - 1 -x][y] == spliter_green && blue[red.size() - 1 - x][y] == spliter_blue) {
 				for (int i = x+1; i < red.size(); i++) {
-					if (red[i][y] == spliter_red && green[i][y] == spliter_green && blue[i][y] == spliter_blue) {
+					if (red[red.size() - 1 -i][y] == spliter_red && green[red.size() - 1 -i][y] == spliter_green && blue[red.size() - 1 -i][y] == spliter_blue) {
 						tilecoord t;
-						t.x = x;
-						t.y = y;
-						t.width = i-x;
-						t.height = i-x;
+						t.x = x+1;
+						t.y = y+1;
+						t.width = i-x -2;
+						t.height = i-x -2;
 						tiles.push_back(t);
+						break;
 					}
 				}
 			}

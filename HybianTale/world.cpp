@@ -3,17 +3,16 @@ World::World()
 {
 	m_player = new Player("Art/hero.png", 0, 0, 16, 16, 3, "player");
 	ObjectPool::Instance()->fillPool(m_player);
-	for (int i = 0; i < WORLD_SIZE; i++)
+	/*for (int i = 0; i < WORLD_SIZE; i++)
 	{
 		for (int j = 0; j < WORLD_SIZE; j++)
 		{
-			m_map[i][j] = new MapSection();
-
-			std::string file = "Art/texttest_tiles.txt";
-			m_map[i][j]->LoadSection(file,i,j);
+			
 		}
-	}
-
+	}*/
+	m_map[0][0] = new MapSection();
+	std::string file = "Art/texttest_tiles.txt";
+	m_map[0][0]->LoadSection(file,0,0);
 	
 	m_currentSection = m_map[m_currentWorldX][m_currentWorldY];
 	m_currentSection->EnterSection();

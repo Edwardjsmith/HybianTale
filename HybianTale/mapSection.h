@@ -7,10 +7,12 @@
 #include <string>
 #include "Tile.h"
 
+struct tilecoord;
 
 class MapSection 
 {
 public:
+	std::vector<tilecoord> tile_map;
 	MapSection();
 	~MapSection();
 	std::string tilepackurl = "Art/tilesprites.bmp";

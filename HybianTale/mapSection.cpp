@@ -33,7 +33,7 @@ MapSection::~MapSection()
 
 void MapSection::LoadSection(std::string filename,int offsetx, int offsety)
 {
-	
+	tile_map = breakspritesheet(tilepackurl, 255, 0, 226);
 	std::vector<std::string> map = LoadTextFile_WithSplit(filename,',');
 
 	for (int i = 0; i < SIZE_X; i++)
@@ -177,7 +177,7 @@ void MapSection::addtile(int x, int y, int id)
 {
 
 	//const char* filename, int xPos, int yPos, int srcX, int srcY, int width, int height, float scale
-	std::vector<tilecoord> tile_map = breakspritesheet(tilepackurl, 255, 0, 226);
+	
 	Tile * temp = new Tile(tilepackurl.c_str(),x*SCALE,y*SCALE,SCALE,SCALE,tile_map.at(id).x, tile_map.at(id).y, tile_map.at(id).width, tile_map.at(id).height);
 	tiles.push_back(temp);
 }
