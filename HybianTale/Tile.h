@@ -24,11 +24,6 @@ public:
 		SDL_QueryTexture(m_texture, NULL, NULL, &width, &height);
 	}
 
-	void Draw()
-	{
-		TextureManager::Instance()->Draw(m_texture, m_src, m_dest, false);
-	}
-
 	~Tile()
 	{
 		if (m_texture)
@@ -36,6 +31,37 @@ public:
 			delete m_texture;
 			m_texture = nullptr;
 		}
+	}
+
+	void Draw()
+	{
+		TextureManager::Instance()->Draw(m_texture, m_src, m_dest, false);
+	}
+
+	void SetPosition(int x, int y)
+	{
+		m_dest.x = x;
+		m_dest.y = y;
+	}
+
+	void SetX(int x)
+	{
+		m_dest.x = x;
+	}
+
+	void SetY(int y)
+	{
+		m_dest.y = y;
+	}
+
+	int GetX()
+	{
+		return m_dest.x;
+	}
+
+	int GetY()
+	{
+		return m_dest.y;
 	}
 
 private:
