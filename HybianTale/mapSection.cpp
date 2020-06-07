@@ -40,21 +40,21 @@ void MapSection::LoadSection(std::string filename,int offsetx, int offsety)
 	{
 		for (int j = 0; j < SIZE_Y; j++)
 		{
-			char tile = *map[i*SIZE_X + j].c_str();
+			int tile = std::stoi(map[i*SIZE_X + j]);
 			switch (tile)
 			{
-			case '-1':
-				AddEnemyPos("enemy1", Vector2(i * 32, j * 32));
+			case -1:
+				addtile(i, j, 1);
 				break;
-			case '0':
-				AddEnemyPos("enemy1", Vector2(i * 32, j * 32));
+			case 0:
+				addtile(i, j, 2);
 				break;
-			case '1':
-				AddEnemyPos("enemy1", Vector2(i * 32, j * 32));
+			case 1:
+				addtile(i, j, 2);
 				break;
-			case '2':
+			case 2:
 				break;
-			case '3':
+			case 3:
 				break;
 			}
 		}
@@ -115,6 +115,9 @@ void MapSection::UpdateSection(float delta)
 			ent->Update(delta);
 		}
 	}
+	for (int i = 0; i < tiles.size(); i++) {
+		tiles.at(i)->Draw();
+	}
 }
 
 void MapSection::AddEntity(Entity * ent)
@@ -168,6 +171,15 @@ void MapSection::EnterSection()
 void MapSection::AddEnemyPos(const char * tag, Vector2 pos)
 {
 	m_enemyPos.emplace(tag, pos);
+}
+
+void MapSection::addtile(int x, int y, int id)
+{
+
+	//const char* filename, int xPos, int yPos, int srcX, int srcY, int width, int height, float scale
+	std::vector<tilecoord> tile_map = breakspritesheet(tilepackurl, 255, 0, 226);
+	Tile * temp = new Tile(tilepackurl.c_str(),x*SCALE,y*SCALE,SCALE,SCALE,tile_map.at(id).x, tile_map.at(id).y, tile_map.at(id).width, tile_map.at(id).height);
+	tiles.push_back(temp);
 }
 
 

@@ -5,6 +5,7 @@
 #include <map>
 #include <fstream>
 #include <string>
+#include "Tile.h"
 
 
 class MapSection 
@@ -12,6 +13,7 @@ class MapSection
 public:
 	MapSection();
 	~MapSection();
+	std::string tilepackurl = "Art/tilesprites.bmp";
 
 	void LoadSection(std::string filename, int offsetx, int offsety);
 
@@ -23,6 +25,8 @@ public:
 
 	void AddEnemyPos(const char* tag, Vector2 pos);
 
+	
+
 	SpacialPartition* GetPartition()
 	{
 		return m_partition;
@@ -32,10 +36,14 @@ private:
 
 	std::multimap<const char*, Vector2> m_terrain;
 	std::multimap<const char*, Vector2> m_enemyPos;
-
-	const int SIZE_Y = SCREEN_HEIGHT / 32;
-	const int SIZE_X = SCREEN_WIDTH / 32;
+	std::vector<Tile*> tiles;
+	const int SCALE = 32;
+	const int SIZE_Y = SCREEN_HEIGHT / SCALE;
+	const int SIZE_X = SCREEN_WIDTH / SCALE;
 
 	SpacialPartition* m_partition;
+
+
+	void addtile(int x, int y, int id);
 };
 

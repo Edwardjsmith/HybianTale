@@ -23,6 +23,40 @@ public:
 
 		SDL_QueryTexture(m_texture, NULL, NULL, &width, &height);
 	}
+	Tile(const char* filename, int xPos, int yPos, int width, int height, int srcX, int srcY, int srcwidth, int srcheight)
+	{
+
+		m_src.w = srcwidth;
+		m_src.h = srcheight;
+		m_src.x = srcX;
+		m_src.y = srcY;
+
+		m_dest.x = xPos;
+		m_dest.y = yPos;
+		m_dest.w = width;
+		m_dest.h = height;
+
+		m_texture = TextureManager::Instance()->LoadTexture(filename);
+
+		SDL_QueryTexture(m_texture, NULL, NULL, &srcwidth, &srcheight);
+	}
+	Tile(const char* filename, int xPos, int yPos, int width, int height, float scale)
+	{
+
+		m_src.w = width;
+		m_src.h = height;
+		m_src.x = 0;
+		m_src.y = 0;
+
+		m_dest.x = xPos;
+		m_dest.y = yPos;
+		m_dest.w = width;
+		m_dest.h = width;
+
+		m_texture = TextureManager::Instance()->LoadTexture(filename);
+
+		SDL_QueryTexture(m_texture, NULL, NULL, &width, &height);
+	}
 
 	~Tile()
 	{

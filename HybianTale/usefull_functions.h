@@ -3,6 +3,15 @@
 #include <fstream>
 #include <string>
 #include <vector>
+
+
+struct tilecoord {
+	int x;
+	int y;
+	int width;
+	int height;
+};
+
 std::vector<std::vector<int>> ReadBMP(std::string filename)
 {
 
@@ -76,15 +85,13 @@ std::vector<std::vector<int>> ReadBMP_Blue(std::string filename)
 			tmp = data[j];
 			data[j] = data[j + 2];
 			data[j + 2] = tmp;
-			
-			tmp = data[j + 2];
 			int b = tmp;
 			w.push_back(std::stoi( std::to_string(b)));
 		}
 		t.push_back(w);
 	}
 	fclose(f);
-
+	delete data;
 	return t;
 };
 std::vector<std::vector<int>> ReadBMP_Red(std::string filename)
@@ -125,7 +132,7 @@ std::vector<std::vector<int>> ReadBMP_Red(std::string filename)
 		t.push_back(w);
 	}
 	fclose(f);
-
+	delete data;
 	return t;
 };
 std::vector<std::vector<int>> ReadBMP_Green(std::string filename)
@@ -166,7 +173,7 @@ std::vector<std::vector<int>> ReadBMP_Green(std::string filename)
 		t.push_back(w);
 	}
 	fclose(f);
-
+	delete data;
 	return t;
 };
 std::vector<std::string> LoadTextFile_WithSplit(std::string filename, char spliter) {
@@ -189,4 +196,31 @@ std::vector<std::string> LoadTextFile_WithSplit(std::string filename, char split
 
 	MyReadFile.close();
 	return data;
+}
+std::vector<tilecoord> breakspritesheet(std::string filename, int spliter_red, int spliter_green, int spliter_blue) {
+	std::vector<tilecoord> tiles;
+	std::vector<std::vector<int>> red = ReadBMP_Red(filename);
+	std::vector<std::vector<int>> green = ReadBMP_Green(filename);
+	std::vector<std::vector<int>> blue = ReadBMP_Blue(filename);
+
+	for (int x = 0; x < red.size(); x++) {
+		for (int y = 0; y < red[x].size(); y++) {
+			if (red[x][y] == spliter_red && green[x][y] == spliter_green && blue[x][y] == spliter_blue) {
+				for (int i = x+1; i < red.size(); i++) {
+					if (red[i][y] == spliter_red && green[i][y] == spliter_green && blue[i][y] == spliter_blue) {
+						tilecoord t;
+						t.x = x;
+						t.y = y;
+						t.width = i-x;
+						t.height = i-x;
+						tiles.push_back(t);
+					}
+				}
+			}
+		}
+	}
+
+
+
+	return tiles;
 }
