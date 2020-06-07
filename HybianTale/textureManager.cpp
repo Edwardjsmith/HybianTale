@@ -9,7 +9,7 @@ TextureManager::TextureManager()
 }
 
 
-SDL_Texture* TextureManager::LoadTexture(const char * filename, SDL_Renderer* rend)
+SDL_Texture* TextureManager::LoadTexture(const char * filename)
 {
 	if (!mp_textures->count(filename))
 	{
@@ -20,7 +20,7 @@ SDL_Texture* TextureManager::LoadTexture(const char * filename, SDL_Renderer* re
 			printf("IMG_Load: %s\n", IMG_GetError());
 		}
 
-		SDL_Texture* tex = SDL_CreateTextureFromSurface(rend, surface);
+		SDL_Texture* tex = SDL_CreateTextureFromSurface(m_renderer, surface);
 		mp_textures->insert(std::pair<const char*, SDL_Texture*>(filename, tex));
 		SDL_FreeSurface(surface);
 	}
@@ -28,10 +28,10 @@ SDL_Texture* TextureManager::LoadTexture(const char * filename, SDL_Renderer* re
 	return mp_textures->at(filename);
 }
 
-void TextureManager::Draw(SDL_Renderer* rend, SDL_Texture * tex, SDL_Rect src, SDL_Rect dest, bool flip)
+void TextureManager::Draw(SDL_Texture * tex, SDL_Rect src, SDL_Rect dest, bool flip)
 {
 	SDL_RendererFlip sdlFlip = flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-	SDL_RenderCopyEx(rend, tex, &src, &dest, 0, 0, sdlFlip);
+	SDL_RenderCopyEx(m_renderer, tex, &src, &dest, 0, 0, sdlFlip);
 }
 
 TextureManager* TextureManager::Instance()

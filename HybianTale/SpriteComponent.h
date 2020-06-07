@@ -25,7 +25,7 @@ public:
 	SpriteComponent() = default;
 	SpriteComponent(const char* texPath, bool animated)
 	{
-		m_texture = TextureManager::Instance()->LoadTexture(texPath, TextureManager::Instance()->GetRenderer());
+		m_texture = TextureManager::Instance()->LoadTexture(texPath);
 
 		SDL_QueryTexture(m_texture, NULL, NULL, &m_textureWidth, &m_textureHeight);
 
@@ -77,7 +77,7 @@ public:
 
 	void Draw() override 
 	{
-		TextureManager::Instance()->Draw(TextureManager::Instance()->GetRenderer(), m_texture, m_srcRect, m_destRect, m_flipSprite);
+		TextureManager::Instance()->Draw(m_texture, m_srcRect, m_destRect, m_flipSprite);
 	}
 
 	int GetFrameWidth()

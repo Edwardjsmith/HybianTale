@@ -1,6 +1,17 @@
-﻿  gameLoop.cpp
+﻿  command.cpp
+  Enemy.cpp
+  entity.cpp
+  gameLoop.cpp
+  IdleState.cpp
+  InputComponent.cpp
   main.cpp
   mapSection.cpp
+  MoveToPlayerState.cpp
+  objectPool.cpp
+  player.cpp
+  spacialPartition.cpp
+  StateMachine.cpp
   world.cpp
   Generating Code...
+  LINK : C:\Users\Ed\Documents\GitHub\HybianTale\HybianTale\x64\Release\HybianTale.exe not found or not built by the last incremental link; performing full link
   HybianTale.vcxproj -> C:\Users\Ed\Documents\GitHub\HybianTale\HybianTale\x64\Release\HybianTale.exe
