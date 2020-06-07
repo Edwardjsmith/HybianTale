@@ -6,7 +6,7 @@
 class Tile
 {
 public:
-	Tile(const char* filename, int xPos, int yPos, int srcX, int srcY, int width, int height, float scale, SDL_Renderer* rend)
+	Tile(const char* filename, int xPos, int yPos, int srcX, int srcY, int width, int height, float scale)
 	{
 
 		m_src.w = width;
