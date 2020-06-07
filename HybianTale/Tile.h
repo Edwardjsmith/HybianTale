@@ -6,16 +6,16 @@
 class Tile
 {
 public:
-	Tile(const char* filename, float x, float y, int width, int height, float scale, SDL_Renderer* rend)
+	Tile(const char* filename, int xPos, int yPos, int srcX, int srcY, int width, int height, float scale, SDL_Renderer* rend)
 	{
 
 		m_src.w = width;
 		m_src.h = height;
-		m_src.x = 0;
-		m_src.y = 0;
+		m_src.x = srcX;
+		m_src.y = srcY;
 
-		m_dest.x = static_cast<int>(x);
-		m_dest.y = static_cast<int>(y);
+		m_dest.x = xPos;
+		m_dest.y = yPos;
 		m_dest.w = m_src.w * scale;
 		m_dest.h = m_src.h * scale;
 
