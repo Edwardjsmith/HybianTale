@@ -44,24 +44,50 @@ public:
 		m_dest.y = y;
 	}
 
-	void SetX(int x)
+	void SetXPos(int x)
 	{
 		m_dest.x = x;
 	}
 
-	void SetY(int y)
+	void SetYPos(int y)
 	{
 		m_dest.y = y;
 	}
 
-	int GetX()
+	int GetXPos()
 	{
 		return m_dest.x;
 	}
 
-	int GetY()
+	int GetYPos()
 	{
 		return m_dest.y;
+	}
+
+	void SetSourcePosition(int x, int y)
+	{
+		m_src.x = x;
+		m_src.y = y;
+	}
+
+	void SetXSource(int x)
+	{
+		m_src.x = x;
+	}
+
+	void SetYSource(int y)
+	{
+		m_src.y = y;
+	}
+
+	int GetXSource()
+	{
+		return m_src.x;
+	}
+
+	int GetYSource()
+	{
+		return m_src.y;
 	}
 
 private:
